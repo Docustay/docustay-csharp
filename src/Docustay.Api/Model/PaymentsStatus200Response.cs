@@ -67,7 +67,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="PaymentsStatus200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected PaymentsStatus200Response() { }
+        protected PaymentsStatus200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="PaymentsStatus200Response" /> class.
         /// </summary>
@@ -82,6 +85,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("mode is a required property for PaymentsStatus200Response and cannot be null");
             }
             this.Mode = mode;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -89,6 +93,12 @@ namespace Docustay.Api.Model
         /// </summary>
         [DataMember(Name = "mode", IsRequired = true, EmitDefaultValue = true)]
         public string Mode { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -100,6 +110,7 @@ namespace Docustay.Api.Model
             sb.Append("class PaymentsStatus200Response {\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  Mode: ").Append(Mode).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

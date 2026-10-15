@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="TemplateMade" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected TemplateMade() { }
+        protected TemplateMade()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateMade" /> class.
         /// </summary>
@@ -59,6 +62,7 @@ namespace Docustay.Api.Model
             this.ExternalId = externalId;
             this.Metadata = metadata;
             this.Detected = detected;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -68,7 +72,7 @@ namespace Docustay.Api.Model
         /*
         <example>contract-2026-0042</example>
         */
-        [DataMember(Name = "externalId", EmitDefaultValue = true)]
+        [DataMember(Name = "externalId", EmitDefaultValue = false)]
         public string ExternalId { get; set; }
 
         /// <summary>
@@ -109,6 +113,12 @@ namespace Docustay.Api.Model
         public TemplateMadeDetected Detected { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -122,6 +132,7 @@ namespace Docustay.Api.Model
             sb.Append("  Fields: ").Append(Fields).Append("\n");
             sb.Append("  Warnings: ").Append(Warnings).Append("\n");
             sb.Append("  Detected: ").Append(Detected).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

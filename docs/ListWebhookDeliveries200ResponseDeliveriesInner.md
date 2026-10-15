@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Event** | **string** |  | 
 **Attempt** | **int** |  | 
 **Status** | **string** |  | 
-**ResponseStatus** | **decimal?** |  | 
+**ResponseStatus** | **decimal** |  | 
 **Error** | **string** |  | 
 **AttemptedAt** | **string** |  | 
 

@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="DocumentEventsInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected DocumentEventsInner() { }
+        protected DocumentEventsInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentEventsInner" /> class.
         /// </summary>
@@ -63,6 +66,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("text is a required property for DocumentEventsInner and cannot be null");
             }
             this.Text = text;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -84,6 +88,12 @@ namespace Docustay.Api.Model
         public string Text { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -94,6 +104,7 @@ namespace Docustay.Api.Model
             sb.Append("  At: ").Append(At).Append("\n");
             sb.Append("  Kind: ").Append(Kind).Append("\n");
             sb.Append("  Text: ").Append(Text).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

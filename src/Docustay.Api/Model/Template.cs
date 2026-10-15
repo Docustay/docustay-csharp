@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="Template" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected Template() { }
+        protected Template()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Template" /> class.
         /// </summary>
@@ -46,7 +49,7 @@ namespace Docustay.Api.Model
         /// <param name="name">name (required).</param>
         /// <param name="pages">pages (required).</param>
         /// <param name="seats">seats (required).</param>
-        public Template(string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), Guid id = default(Guid), string name = default(string), int? pages = default(int?), List<TemplateSeatsInner> seats = default(List<TemplateSeatsInner>))
+        public Template(string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), Guid id = default(Guid), string name = default(string), int pages = default(int), List<TemplateSeatsInner> seats = default(List<TemplateSeatsInner>))
         {
             this.Id = id;
             // to ensure "name" is required (not null)
@@ -55,11 +58,6 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("name is a required property for Template and cannot be null");
             }
             this.Name = name;
-            // to ensure "pages" is required (not null)
-            if (pages == null)
-            {
-                throw new ArgumentNullException("pages is a required property for Template and cannot be null");
-            }
             this.Pages = pages;
             // to ensure "seats" is required (not null)
             if (seats == null)
@@ -69,6 +67,7 @@ namespace Docustay.Api.Model
             this.Seats = seats;
             this.ExternalId = externalId;
             this.Metadata = metadata;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace Docustay.Api.Model
         /*
         <example>contract-2026-0042</example>
         */
-        [DataMember(Name = "externalId", EmitDefaultValue = true)]
+        [DataMember(Name = "externalId", EmitDefaultValue = false)]
         public string ExternalId { get; set; }
 
         /// <summary>
@@ -110,13 +109,19 @@ namespace Docustay.Api.Model
         /// Gets or Sets Pages
         /// </summary>
         [DataMember(Name = "pages", IsRequired = true, EmitDefaultValue = true)]
-        public int? Pages { get; set; }
+        public int Pages { get; set; }
 
         /// <summary>
         /// Gets or Sets Seats
         /// </summary>
         [DataMember(Name = "seats", IsRequired = true, EmitDefaultValue = true)]
         public List<TemplateSeatsInner> Seats { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -132,6 +137,7 @@ namespace Docustay.Api.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Pages: ").Append(Pages).Append("\n");
             sb.Append("  Seats: ").Append(Seats).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

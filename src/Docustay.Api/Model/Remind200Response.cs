@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="Remind200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected Remind200Response() { }
+        protected Remind200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Remind200Response" /> class.
         /// </summary>
@@ -46,6 +49,7 @@ namespace Docustay.Api.Model
         {
             this.Id = id;
             this.Reminded = reminded;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -64,6 +68,12 @@ namespace Docustay.Api.Model
         public int Reminded { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -73,6 +83,7 @@ namespace Docustay.Api.Model
             sb.Append("class Remind200Response {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Reminded: ").Append(Reminded).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

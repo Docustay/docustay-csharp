@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListTeams200ResponseTeamsInnerMembersInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListTeams200ResponseTeamsInnerMembersInner() { }
+        protected ListTeams200ResponseTeamsInnerMembersInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListTeams200ResponseTeamsInnerMembersInner" /> class.
         /// </summary>
@@ -51,6 +54,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("name is a required property for ListTeams200ResponseTeamsInnerMembersInner and cannot be null");
             }
             this.Name = name;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -69,6 +73,12 @@ namespace Docustay.Api.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -78,6 +88,7 @@ namespace Docustay.Api.Model
             sb.Append("class ListTeams200ResponseTeamsInnerMembersInner {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

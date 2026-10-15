@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="Document" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected Document() { }
+        protected Document()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Document" /> class.
         /// </summary>
@@ -56,7 +59,7 @@ namespace Docustay.Api.Model
         /// <param name="parties">parties (required).</param>
         /// <param name="payments">Payments made through payment fields on this document (empty when it has none). A payment field&#39;s amount is set by ONE of: a fixed amount, a formula over the signer&#39;s own fields, a Stripe price, or a Stripe payment link — see the text tag settings &#x60;amount&#x60;, &#x60;formula&#x60;, &#x60;price&#x60; and &#x60;link&#x60;. (required).</param>
         /// <param name="events">events (required).</param>
-        public Document(string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), bool test = default(bool), Guid id = default(Guid), string title = default(string), string state = default(string), string sentAt = default(string), string expiresAt = default(string), string executedAt = default(string), string voidedAt = default(string), string voidReason = default(string), TestSign200ResponseProgress progress = default(TestSign200ResponseProgress), bool signedCopyAvailable = default(bool), List<Party> parties = default(List<Party>), List<Payment> payments = default(List<Payment>), List<DocumentEventsInner> events = default(List<DocumentEventsInner>))
+        public Document(string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), bool test = default(bool), Guid id = default(Guid), string title = default(string), string state = default(string), string sentAt = default(string), string expiresAt = default(string), string executedAt = default(string), string voidedAt = default(string), string voidReason = default(string), DocumentProgress progress = default(DocumentProgress), bool signedCopyAvailable = default(bool), List<Party> parties = default(List<Party>), List<Payment> payments = default(List<Payment>), List<DocumentEventsInner> events = default(List<DocumentEventsInner>))
         {
             // to ensure "externalId" is required (not null)
             if (externalId == null)
@@ -139,6 +142,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("events is a required property for Document and cannot be null");
             }
             this.Events = events;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -222,7 +226,7 @@ namespace Docustay.Api.Model
         /// Gets or Sets Progress
         /// </summary>
         [DataMember(Name = "progress", IsRequired = true, EmitDefaultValue = true)]
-        public TestSign200ResponseProgress Progress { get; set; }
+        public DocumentProgress Progress { get; set; }
 
         /// <summary>
         /// Gets or Sets SignedCopyAvailable
@@ -250,6 +254,12 @@ namespace Docustay.Api.Model
         public List<DocumentEventsInner> Events { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -273,6 +283,7 @@ namespace Docustay.Api.Model
             sb.Append("  Parties: ").Append(Parties).Append("\n");
             sb.Append("  Payments: ").Append(Payments).Append("\n");
             sb.Append("  Events: ").Append(Events).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

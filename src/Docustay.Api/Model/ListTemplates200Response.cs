@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListTemplates200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListTemplates200Response() { }
+        protected ListTemplates200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListTemplates200Response" /> class.
         /// </summary>
@@ -49,6 +52,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("templates is a required property for ListTemplates200Response and cannot be null");
             }
             this.Templates = templates;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -56,6 +60,12 @@ namespace Docustay.Api.Model
         /// </summary>
         [DataMember(Name = "templates", IsRequired = true, EmitDefaultValue = true)]
         public List<Template> Templates { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -66,6 +76,7 @@ namespace Docustay.Api.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class ListTemplates200Response {\n");
             sb.Append("  Templates: ").Append(Templates).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

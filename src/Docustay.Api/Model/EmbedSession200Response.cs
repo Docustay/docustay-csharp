@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="EmbedSession200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected EmbedSession200Response() { }
+        protected EmbedSession200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="EmbedSession200Response" /> class.
         /// </summary>
@@ -65,6 +68,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("expiresAt is a required property for EmbedSession200Response and cannot be null");
             }
             this.ExpiresAt = expiresAt;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -95,6 +99,12 @@ namespace Docustay.Api.Model
         public string ExpiresAt { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -106,6 +116,7 @@ namespace Docustay.Api.Model
             sb.Append("  Seat: ").Append(Seat).Append("\n");
             sb.Append("  Url: ").Append(Url).Append("\n");
             sb.Append("  ExpiresAt: ").Append(ExpiresAt).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

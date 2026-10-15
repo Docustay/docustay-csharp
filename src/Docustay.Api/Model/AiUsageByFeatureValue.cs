@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="AiUsageByFeatureValue" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected AiUsageByFeatureValue() { }
+        protected AiUsageByFeatureValue()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="AiUsageByFeatureValue" /> class.
         /// </summary>
@@ -46,6 +49,7 @@ namespace Docustay.Api.Model
         {
             this.Calls = calls;
             this.Credits = credits;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -61,6 +65,12 @@ namespace Docustay.Api.Model
         public decimal Credits { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -70,6 +80,7 @@ namespace Docustay.Api.Model
             sb.Append("class AiUsageByFeatureValue {\n");
             sb.Append("  Calls: ").Append(Calls).Append("\n");
             sb.Append("  Credits: ").Append(Credits).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

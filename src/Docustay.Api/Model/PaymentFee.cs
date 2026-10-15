@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="PaymentFee" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected PaymentFee() { }
+        protected PaymentFee()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="PaymentFee" /> class.
         /// </summary>
@@ -55,6 +58,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("plan is a required property for PaymentFee and cannot be null");
             }
             this.Plan = plan;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -90,6 +94,12 @@ namespace Docustay.Api.Model
         public string Plan { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -101,6 +111,7 @@ namespace Docustay.Api.Model
             sb.Append("  AmountMinor: ").Append(AmountMinor).Append("\n");
             sb.Append("  RefundedMinor: ").Append(RefundedMinor).Append("\n");
             sb.Append("  Plan: ").Append(Plan).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

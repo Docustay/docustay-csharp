@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListTeams200ResponseTeamsInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListTeams200ResponseTeamsInner() { }
+        protected ListTeams200ResponseTeamsInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListTeams200ResponseTeamsInner" /> class.
         /// </summary>
@@ -62,6 +65,7 @@ namespace Docustay.Api.Model
             this.Members = members;
             this.Documents = documents;
             this.Templates = templates;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -98,6 +102,12 @@ namespace Docustay.Api.Model
         public int Templates { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -110,6 +120,7 @@ namespace Docustay.Api.Model
             sb.Append("  Members: ").Append(Members).Append("\n");
             sb.Append("  Documents: ").Append(Documents).Append("\n");
             sb.Append("  Templates: ").Append(Templates).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

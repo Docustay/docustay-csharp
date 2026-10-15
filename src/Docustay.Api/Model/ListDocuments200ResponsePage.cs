@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListDocuments200ResponsePage" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListDocuments200ResponsePage() { }
+        protected ListDocuments200ResponsePage()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListDocuments200ResponsePage" /> class.
         /// </summary>
@@ -53,6 +56,7 @@ namespace Docustay.Api.Model
             }
             this.NextCursor = nextCursor;
             this.HasMore = hasMore;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -74,6 +78,12 @@ namespace Docustay.Api.Model
         public bool HasMore { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -84,6 +94,7 @@ namespace Docustay.Api.Model
             sb.Append("  Limit: ").Append(Limit).Append("\n");
             sb.Append("  NextCursor: ").Append(NextCursor).Append("\n");
             sb.Append("  HasMore: ").Append(HasMore).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

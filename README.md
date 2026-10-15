@@ -3,7 +3,7 @@
 Official Docustay API client: send documents for signature and follow them from your own software. https://docustay.app/docs
 
 ```
-dotnet add package Docustay.Api --version 0.1.1
+dotnet add package Docustay.Api --version 0.1.2
 ```
 
 Generated from the published OpenAPI document (https://docustay.app/api/openapi.json): all 77 operations. MIT licence. Source of truth: https://github.com/Docustay/docustay
@@ -255,6 +255,8 @@ Class | Method | HTTP request | Description
  - [Model.Document](docs/Document.md)
  - [Model.DocumentEventsInner](docs/DocumentEventsInner.md)
  - [Model.DocumentMade](docs/DocumentMade.md)
+ - [Model.DocumentMadeApproval](docs/DocumentMadeApproval.md)
+ - [Model.DocumentProgress](docs/DocumentProgress.md)
  - [Model.DocumentSummary](docs/DocumentSummary.md)
  - [Model.DraftFromLibraryTemplateRequest](docs/DraftFromLibraryTemplateRequest.md)
  - [Model.DraftWithAi202Response](docs/DraftWithAi202Response.md)
@@ -301,6 +303,7 @@ Class | Method | HTTP request | Description
  - [Model.RemindRequest](docs/RemindRequest.md)
  - [Model.Report](docs/Report.md)
  - [Model.ReportByDayInner](docs/ReportByDayInner.md)
+ - [Model.ReportByTeamInner](docs/ReportByTeamInner.md)
  - [Model.ReportByTemplateInner](docs/ReportByTemplateInner.md)
  - [Model.ReportTotals](docs/ReportTotals.md)
  - [Model.ReportWindow](docs/ReportWindow.md)

@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListWebhookDeliveries200ResponseDeliveriesInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListWebhookDeliveries200ResponseDeliveriesInner() { }
+        protected ListWebhookDeliveries200ResponseDeliveriesInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListWebhookDeliveries200ResponseDeliveriesInner" /> class.
         /// </summary>
@@ -47,7 +50,7 @@ namespace Docustay.Api.Model
         /// <param name="responseStatus">responseStatus (required).</param>
         /// <param name="error">error (required).</param>
         /// <param name="attemptedAt">attemptedAt (required).</param>
-        public ListWebhookDeliveries200ResponseDeliveriesInner(Guid id = default(Guid), string varEvent = default(string), int attempt = default(int), string status = default(string), decimal? responseStatus = default(decimal?), string error = default(string), string attemptedAt = default(string))
+        public ListWebhookDeliveries200ResponseDeliveriesInner(Guid id = default(Guid), string varEvent = default(string), int attempt = default(int), string status = default(string), decimal responseStatus = default(decimal), string error = default(string), string attemptedAt = default(string))
         {
             this.Id = id;
             // to ensure "varEvent" is required (not null)
@@ -63,11 +66,6 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("status is a required property for ListWebhookDeliveries200ResponseDeliveriesInner and cannot be null");
             }
             this.Status = status;
-            // to ensure "responseStatus" is required (not null)
-            if (responseStatus == null)
-            {
-                throw new ArgumentNullException("responseStatus is a required property for ListWebhookDeliveries200ResponseDeliveriesInner and cannot be null");
-            }
             this.ResponseStatus = responseStatus;
             // to ensure "error" is required (not null)
             if (error == null)
@@ -81,6 +79,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("attemptedAt is a required property for ListWebhookDeliveries200ResponseDeliveriesInner and cannot be null");
             }
             this.AttemptedAt = attemptedAt;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace Docustay.Api.Model
         /// Gets or Sets ResponseStatus
         /// </summary>
         [DataMember(Name = "responseStatus", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? ResponseStatus { get; set; }
+        public decimal ResponseStatus { get; set; }
 
         /// <summary>
         /// Gets or Sets Error
@@ -124,6 +123,12 @@ namespace Docustay.Api.Model
         /// </summary>
         [DataMember(Name = "attemptedAt", IsRequired = true, EmitDefaultValue = true)]
         public string AttemptedAt { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -140,6 +145,7 @@ namespace Docustay.Api.Model
             sb.Append("  ResponseStatus: ").Append(ResponseStatus).Append("\n");
             sb.Append("  Error: ").Append(Error).Append("\n");
             sb.Append("  AttemptedAt: ").Append(AttemptedAt).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

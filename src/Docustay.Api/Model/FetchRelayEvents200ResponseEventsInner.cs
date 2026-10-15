@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="FetchRelayEvents200ResponseEventsInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected FetchRelayEvents200ResponseEventsInner() { }
+        protected FetchRelayEvents200ResponseEventsInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="FetchRelayEvents200ResponseEventsInner" /> class.
         /// </summary>
@@ -72,6 +75,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("at is a required property for FetchRelayEvents200ResponseEventsInner and cannot be null");
             }
             this.At = at;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -105,6 +109,12 @@ namespace Docustay.Api.Model
         public string At { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -117,6 +127,7 @@ namespace Docustay.Api.Model
             sb.Append("  Headers: ").Append(Headers).Append("\n");
             sb.Append("  Body: ").Append(Body).Append("\n");
             sb.Append("  At: ").Append(At).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

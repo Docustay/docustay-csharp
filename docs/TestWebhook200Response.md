@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Outcome** | **string** |  | 
-**Status** | **decimal?** |  | 
+**Status** | **decimal** |  | 
 **DurationMs** | **decimal** |  | 
 **ResponseExcerpt** | **string** |  | 
 **Error** | **string** |  | 

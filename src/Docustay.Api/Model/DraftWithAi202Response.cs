@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="DraftWithAi202Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected DraftWithAi202Response() { }
+        protected DraftWithAi202Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="DraftWithAi202Response" /> class.
         /// </summary>
@@ -51,6 +54,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("state is a required property for DraftWithAi202Response and cannot be null");
             }
             this.State = state;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -69,6 +73,12 @@ namespace Docustay.Api.Model
         public string State { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -78,6 +88,7 @@ namespace Docustay.Api.Model
             sb.Append("class DraftWithAi202Response {\n");
             sb.Append("  JobId: ").Append(JobId).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

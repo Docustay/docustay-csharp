@@ -67,7 +67,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="AiUsage" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected AiUsage() { }
+        protected AiUsage()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="AiUsage" /> class.
         /// </summary>
@@ -82,7 +85,7 @@ namespace Docustay.Api.Model
         /// <param name="byFeature">byFeature (required).</param>
         /// <param name="thinkHarder">thinkHarder (required).</param>
         /// <param name="paused">paused (required).</param>
-        public AiUsage(ModeEnum mode = default(ModeEnum), string plan = default(string), decimal? allowance = default(decimal?), decimal? used = default(decimal?), decimal? remaining = default(decimal?), decimal? percent = default(decimal?), string state = default(string), string resetsAt = default(string), Dictionary<string, AiUsageByFeatureValue> byFeature = default(Dictionary<string, AiUsageByFeatureValue>), AiUsageThinkHarder thinkHarder = default(AiUsageThinkHarder), bool paused = default(bool))
+        public AiUsage(ModeEnum mode = default(ModeEnum), string plan = default(string), decimal allowance = default(decimal), decimal used = default(decimal), decimal remaining = default(decimal), decimal percent = default(decimal), string state = default(string), string resetsAt = default(string), Dictionary<string, AiUsageByFeatureValue> byFeature = default(Dictionary<string, AiUsageByFeatureValue>), AiUsageThinkHarder thinkHarder = default(AiUsageThinkHarder), bool paused = default(bool))
         {
             this.Mode = mode;
             // to ensure "plan" is required (not null)
@@ -91,29 +94,9 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("plan is a required property for AiUsage and cannot be null");
             }
             this.Plan = plan;
-            // to ensure "allowance" is required (not null)
-            if (allowance == null)
-            {
-                throw new ArgumentNullException("allowance is a required property for AiUsage and cannot be null");
-            }
             this.Allowance = allowance;
-            // to ensure "used" is required (not null)
-            if (used == null)
-            {
-                throw new ArgumentNullException("used is a required property for AiUsage and cannot be null");
-            }
             this.Used = used;
-            // to ensure "remaining" is required (not null)
-            if (remaining == null)
-            {
-                throw new ArgumentNullException("remaining is a required property for AiUsage and cannot be null");
-            }
             this.Remaining = remaining;
-            // to ensure "percent" is required (not null)
-            if (percent == null)
-            {
-                throw new ArgumentNullException("percent is a required property for AiUsage and cannot be null");
-            }
             this.Percent = percent;
             // to ensure "state" is required (not null)
             if (state == null)
@@ -140,6 +123,7 @@ namespace Docustay.Api.Model
             }
             this.ThinkHarder = thinkHarder;
             this.Paused = paused;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -152,25 +136,25 @@ namespace Docustay.Api.Model
         /// Gets or Sets Allowance
         /// </summary>
         [DataMember(Name = "allowance", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? Allowance { get; set; }
+        public decimal Allowance { get; set; }
 
         /// <summary>
         /// Gets or Sets Used
         /// </summary>
         [DataMember(Name = "used", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? Used { get; set; }
+        public decimal Used { get; set; }
 
         /// <summary>
         /// Gets or Sets Remaining
         /// </summary>
         [DataMember(Name = "remaining", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? Remaining { get; set; }
+        public decimal Remaining { get; set; }
 
         /// <summary>
         /// Gets or Sets Percent
         /// </summary>
         [DataMember(Name = "percent", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? Percent { get; set; }
+        public decimal Percent { get; set; }
 
         /// <summary>
         /// Gets or Sets State
@@ -203,6 +187,12 @@ namespace Docustay.Api.Model
         public bool Paused { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -221,6 +211,7 @@ namespace Docustay.Api.Model
             sb.Append("  ByFeature: ").Append(ByFeature).Append("\n");
             sb.Append("  ThinkHarder: ").Append(ThinkHarder).Append("\n");
             sb.Append("  Paused: ").Append(Paused).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

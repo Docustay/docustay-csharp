@@ -32,6 +32,8 @@ docs/DetectedField.md
 docs/Document.md
 docs/DocumentEventsInner.md
 docs/DocumentMade.md
+docs/DocumentMadeApproval.md
+docs/DocumentProgress.md
 docs/DocumentSummary.md
 docs/DocumentsApi.md
 docs/DraftFromLibraryTemplateRequest.md
@@ -84,6 +86,7 @@ docs/Remind200Response.md
 docs/RemindRequest.md
 docs/Report.md
 docs/ReportByDayInner.md
+docs/ReportByTeamInner.md
 docs/ReportByTemplateInner.md
 docs/ReportTotals.md
 docs/ReportWindow.md
@@ -174,7 +177,9 @@ src/Docustay.Api.Test/Model/DetectFieldsResultSummaryTests.cs
 src/Docustay.Api.Test/Model/DetectFieldsResultTests.cs
 src/Docustay.Api.Test/Model/DetectedFieldTests.cs
 src/Docustay.Api.Test/Model/DocumentEventsInnerTests.cs
+src/Docustay.Api.Test/Model/DocumentMadeApprovalTests.cs
 src/Docustay.Api.Test/Model/DocumentMadeTests.cs
+src/Docustay.Api.Test/Model/DocumentProgressTests.cs
 src/Docustay.Api.Test/Model/DocumentSummaryTests.cs
 src/Docustay.Api.Test/Model/DocumentTests.cs
 src/Docustay.Api.Test/Model/DraftFromLibraryTemplateRequestTests.cs
@@ -221,6 +226,7 @@ src/Docustay.Api.Test/Model/RefundPaymentRequestTests.cs
 src/Docustay.Api.Test/Model/Remind200ResponseTests.cs
 src/Docustay.Api.Test/Model/RemindRequestTests.cs
 src/Docustay.Api.Test/Model/ReportByDayInnerTests.cs
+src/Docustay.Api.Test/Model/ReportByTeamInnerTests.cs
 src/Docustay.Api.Test/Model/ReportByTemplateInnerTests.cs
 src/Docustay.Api.Test/Model/ReportTests.cs
 src/Docustay.Api.Test/Model/ReportTotalsTests.cs
@@ -326,6 +332,8 @@ src/Docustay.Api/Model/DetectedField.cs
 src/Docustay.Api/Model/Document.cs
 src/Docustay.Api/Model/DocumentEventsInner.cs
 src/Docustay.Api/Model/DocumentMade.cs
+src/Docustay.Api/Model/DocumentMadeApproval.cs
+src/Docustay.Api/Model/DocumentProgress.cs
 src/Docustay.Api/Model/DocumentSummary.cs
 src/Docustay.Api/Model/DraftFromLibraryTemplateRequest.cs
 src/Docustay.Api/Model/DraftWithAi202Response.cs
@@ -372,6 +380,7 @@ src/Docustay.Api/Model/Remind200Response.cs
 src/Docustay.Api/Model/RemindRequest.cs
 src/Docustay.Api/Model/Report.cs
 src/Docustay.Api/Model/ReportByDayInner.cs
+src/Docustay.Api/Model/ReportByTeamInner.cs
 src/Docustay.Api/Model/ReportByTemplateInner.cs
 src/Docustay.Api/Model/ReportTotals.cs
 src/Docustay.Api/Model/ReportWindow.cs

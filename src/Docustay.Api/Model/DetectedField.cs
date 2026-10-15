@@ -85,7 +85,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="DetectedField" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected DetectedField() { }
+        protected DetectedField()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetectedField" /> class.
         /// </summary>
@@ -131,6 +134,7 @@ namespace Docustay.Api.Model
             this.Sensitive = sensitive;
             this.Format = format;
             this.Group = group;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -221,6 +225,12 @@ namespace Docustay.Api.Model
         public bool Uncertain { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -243,6 +253,7 @@ namespace Docustay.Api.Model
             sb.Append("  Format: ").Append(Format).Append("\n");
             sb.Append("  Group: ").Append(Group).Append("\n");
             sb.Append("  Uncertain: ").Append(Uncertain).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

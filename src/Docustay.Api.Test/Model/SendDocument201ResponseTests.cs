@@ -74,6 +74,24 @@ namespace Docustay.Api.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'ExternalId'
+        /// </summary>
+        [Fact]
+        public void ExternalIdTest()
+        {
+            // TODO unit test for the property 'ExternalId'
+        }
+
+        /// <summary>
+        /// Test the property 'Metadata'
+        /// </summary>
+        [Fact]
+        public void MetadataTest()
+        {
+            // TODO unit test for the property 'Metadata'
+        }
+
+        /// <summary>
         /// Test the property 'Emailed'
         /// </summary>
         [Fact]

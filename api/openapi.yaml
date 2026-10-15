@@ -9065,6 +9065,7 @@ components:
   parameters: {}
   schemas:
     Template:
+      additionalProperties: {}
       example:
         metadata:
           crmDealId: D-1042
@@ -9084,8 +9085,6 @@ components:
           example: contract-2026-0042
           maxLength: 200
           minLength: 1
-          nullable: true
-          type: string
         metadata:
           additionalProperties:
             type: string
@@ -9101,13 +9100,10 @@ components:
           type: string
         name:
           type: string
-        pages:
-          nullable: true
-          type: integer
+        pages: {}
         seats:
           items:
             $ref: '#/components/schemas/Template_seats_inner'
-          type: array
       required:
       - id
       - name
@@ -9128,6 +9124,7 @@ components:
       required:
       - error
     DocumentSummary:
+      additionalProperties: true
       example:
         createdAt: createdAt
         metadata:
@@ -9198,6 +9195,7 @@ components:
       - test
       - title
     Document:
+      additionalProperties: {}
       example:
         metadata:
           crmDealId: D-1042
@@ -9283,8 +9281,6 @@ components:
           example: contract-2026-0042
           maxLength: 200
           minLength: 1
-          nullable: true
-          type: string
         metadata:
           additionalProperties:
             type: string
@@ -9304,29 +9300,18 @@ components:
           type: string
         state:
           type: string
-        sentAt:
-          nullable: true
-          type: string
-        expiresAt:
-          nullable: true
-          type: string
-        executedAt:
-          nullable: true
-          type: string
-        voidedAt:
-          nullable: true
-          type: string
-        voidReason:
-          nullable: true
-          type: string
+        sentAt: {}
+        expiresAt: {}
+        executedAt: {}
+        voidedAt: {}
+        voidReason: {}
         progress:
-          $ref: '#/components/schemas/testSign_200_response_progress'
+          $ref: '#/components/schemas/Document_progress'
         signedCopyAvailable:
           type: boolean
         parties:
           items:
             $ref: '#/components/schemas/Party'
-          type: array
         payments:
           description: "Payments made through payment fields on this document (empty\
             \ when it has none). A payment field's amount is set by ONE of: a fixed\
@@ -9335,11 +9320,9 @@ components:
             \ `price` and `link`."
           items:
             $ref: '#/components/schemas/Payment'
-          type: array
         events:
           items:
             $ref: '#/components/schemas/Document_events_inner'
-          type: array
       required:
       - events
       - executedAt
@@ -9358,6 +9341,7 @@ components:
       - voidReason
       - voidedAt
     Party:
+      additionalProperties: true
       example:
         seat: seat
         metadata:
@@ -9420,6 +9404,7 @@ components:
       - status
       - viewedAt
     Payment:
+      additionalProperties: {}
       example:
         test: true
         person: person
@@ -9441,9 +9426,7 @@ components:
           example: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
           format: uuid
           type: string
-        fieldId:
-          nullable: true
-          type: string
+        fieldId: {}
         person:
           type: string
         status:
@@ -9455,22 +9438,15 @@ components:
           - partially_refunded
           - refunded
           - expired
-          type: string
         amountMinor:
           description: "What was charged, in the smallest unit of `currency` (cents).\
             \ Worked out on the server; never taken from the browser."
           example: 15000
-          type: integer
         currency:
           example: usd
-          type: string
-        paidAt:
-          nullable: true
-          type: string
+        paidAt: {}
         receiptUrl:
           description: Stripe's own receipt for the payment.
-          nullable: true
-          type: string
         refundedMinor:
           type: integer
         fee:
@@ -9624,6 +9600,7 @@ components:
             \ each person."
           type: string
     TemplateMade:
+      additionalProperties: {}
       example:
         metadata:
           crmDealId: D-1042
@@ -9647,8 +9624,6 @@ components:
           example: contract-2026-0042
           maxLength: 200
           minLength: 1
-          nullable: true
-          type: string
         metadata:
           additionalProperties:
             type: string
@@ -9667,7 +9642,6 @@ components:
         warnings:
           items:
             $ref: '#/components/schemas/TemplateMade_warnings_inner'
-          type: array
         detected:
           $ref: '#/components/schemas/TemplateMade_detected'
       required:
@@ -9807,6 +9781,7 @@ components:
         id:
           example: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
           format: uuid
+          type: string
         state:
           enum:
           - queued
@@ -9816,13 +9791,14 @@ components:
           - cancelled
         message: {}
         source:
-          additionalProperties: {}
+          additionalProperties: true
         patches:
-          additionalProperties: {}
+          additionalProperties: true
       required:
       - id
       - state
     Usage:
+      additionalProperties: true
       example:
         emails:
           resetsAt: resetsAt
@@ -9857,6 +9833,7 @@ components:
       - period
       - plan
     DetectFieldsResult:
+      additionalProperties: {}
       example:
         summary:
           signers: 7
@@ -9923,25 +9900,20 @@ components:
         fields:
           items:
             $ref: '#/components/schemas/DetectedField'
-          type: array
         signers:
           items:
             $ref: '#/components/schemas/Template_seats_inner'
-          type: array
         pages:
           items:
             $ref: '#/components/schemas/DetectFieldsResult_pages_inner'
-          type: array
         documents:
           items:
             $ref: '#/components/schemas/DetectFieldsResult_documents_inner'
-          type: array
         summary:
           $ref: '#/components/schemas/DetectFieldsResult_summary'
         notes:
           items:
             type: string
-          type: array
       required:
       - documents
       - fields
@@ -9950,6 +9922,7 @@ components:
       - signers
       - summary
     DetectedField:
+      additionalProperties: true
       example:
         role: role
         confidence: 2.3021358869347655
@@ -10045,6 +10018,7 @@ components:
       required:
       - file
     AiUsage:
+      additionalProperties: {}
       example:
         mode: hosted
         paused: true
@@ -10067,27 +10041,14 @@ components:
           - hosted
           - own_key
           - unmetered
-          type: string
-        plan:
-          nullable: true
-          type: string
-        allowance:
-          nullable: true
-          type: number
-        used:
-          nullable: true
-          type: number
-        remaining:
-          nullable: true
-          type: number
-        percent:
-          nullable: true
-          type: number
+        plan: {}
+        allowance: {}
+        used: {}
+        remaining: {}
+        percent: {}
         state:
           type: string
-        resetsAt:
-          nullable: true
-          type: string
+        resetsAt: {}
         byFeature:
           additionalProperties:
             $ref: '#/components/schemas/AiUsage_byFeature_value'
@@ -10108,14 +10069,15 @@ components:
       - thinkHarder
       - used
     Report:
+      additionalProperties: {}
       example:
         timezone: timezone
         bySender:
         - name: name
-          completed: 1
+          completed: 6
           sent: 1
         - name: name
-          completed: 1
+          completed: 6
           sent: 1
         byDay:
         - date: date
@@ -10147,10 +10109,10 @@ components:
           sent: 1
         byTeam:
         - name: name
-          completed: 1
+          completed: 6
           sent: 1
         - name: name
-          completed: 1
+          completed: 6
           sent: 1
       properties:
         window:
@@ -10162,19 +10124,15 @@ components:
         byDay:
           items:
             $ref: '#/components/schemas/Report_byDay_inner'
-          type: array
         byTemplate:
           items:
             $ref: '#/components/schemas/Report_byTemplate_inner'
-          type: array
         byTeam:
           items:
-            $ref: '#/components/schemas/Report_byTemplate_inner'
-          type: array
+            $ref: '#/components/schemas/Report_byTeam_inner'
         bySender:
           items:
-            $ref: '#/components/schemas/Report_byTemplate_inner'
-          type: array
+            $ref: '#/components/schemas/Report_byTeam_inner'
       required:
       - byDay
       - bySender
@@ -10215,6 +10173,7 @@ components:
           nullable: true
           type: string
     DocumentMade:
+      additionalProperties: {}
       example:
         notEmailed:
         - ""
@@ -10239,15 +10198,13 @@ components:
         state: draft
       properties:
         approval:
-          $ref: '#/components/schemas/sendDraft_202_response_approval'
+          $ref: '#/components/schemas/DocumentMade_approval'
         externalId:
           description: "Your own id for this thing, so you can match it to your records.\
             \ Filter lists with `externalId=`."
           example: contract-2026-0042
           maxLength: 200
           minLength: 1
-          nullable: true
-          type: string
         metadata:
           additionalProperties:
             type: string
@@ -10265,19 +10222,15 @@ components:
           enum:
           - draft
           - sent
-          type: string
         roles:
           items:
             $ref: '#/components/schemas/Template_seats_inner'
-          type: array
         emailed:
           type: integer
         notEmailed:
           items: {}
-          type: array
         warnings:
           items: {}
-          type: array
       required:
       - id
       - state
@@ -10381,13 +10334,14 @@ components:
           minLength: 1
           type: string
         source:
-          additionalProperties: {}
+          additionalProperties: true
           description: "A written document: TipTap JSON `{type:\"doc\",content:[…\
             ]}`. Field tags (`fieldTag` with name, type, role, required, autofill,\
             \ editable, placeholder, tooltip, locked, options, default…), merge chips\
             \ (`variableChip`; `custom.<key>` chips are the template's questions),\
             \ and headings with `audience: \"sender\"` (Sender only: in nothing a\
             \ signer sees, signs or receives)."
+          type: object
         people:
           items:
             $ref: '#/components/schemas/Person'
@@ -10567,6 +10521,7 @@ components:
         counterSign:
           $ref: '#/components/schemas/FormSettings_counterSign'
     WebhookEndpoint:
+      additionalProperties: true
       example:
         disabledReason: disabledReason
         createdAt: createdAt
@@ -10623,6 +10578,7 @@ components:
       - status
       - url
     BuilderSession:
+      additionalProperties: true
       example:
         url: https://openapi-generator.tech
         expiresAt: expiresAt
@@ -10636,6 +10592,7 @@ components:
       - expiresAt
       - url
     listTemplates_200_response:
+      additionalProperties: {}
       example:
         templates:
         - metadata:
@@ -10664,10 +10621,10 @@ components:
         templates:
           items:
             $ref: '#/components/schemas/Template'
-          type: array
       required:
       - templates
     listDocuments_200_response_page:
+      additionalProperties: {}
       example:
         nextCursor: nextCursor
         limit: 6
@@ -10675,9 +10632,7 @@ components:
       properties:
         limit:
           type: integer
-        nextCursor:
-          nullable: true
-          type: string
+        nextCursor: {}
         hasMore:
           type: boolean
       required:
@@ -10685,6 +10640,7 @@ components:
       - limit
       - nextCursor
     listDocuments_200_response:
+      additionalProperties: {}
       example:
         documents:
         - createdAt: createdAt
@@ -10719,13 +10675,13 @@ components:
         documents:
           items:
             $ref: '#/components/schemas/DocumentSummary'
-          type: array
         page:
           $ref: '#/components/schemas/listDocuments_200_response_page'
       required:
       - documents
       - page
     sendDocument_201_response_notEmailed_inner:
+      additionalProperties: {}
       example:
         seat: seat
         reason: reason
@@ -10738,15 +10694,14 @@ components:
           type: string
         reason:
           type: string
-        detail:
-          nullable: true
-          type: string
+        detail: {}
       required:
       - detail
       - email
       - reason
       - seat
     sendDocument_201_response:
+      additionalProperties: {}
       example:
         notEmailed:
         - seat: seat
@@ -10757,7 +10712,10 @@ components:
           reason: reason
           detail: detail
           email: email
+        metadata:
+          crmDealId: D-1042
         emailed: 0
+        externalId: contract-2026-0042
         id: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
         state: state
       properties:
@@ -10767,16 +10725,29 @@ components:
           type: string
         state:
           type: string
+        externalId:
+          description: "Your own id for this thing, so you can match it to your records.\
+            \ Filter lists with `externalId=`."
+          example: contract-2026-0042
+          maxLength: 200
+          minLength: 1
+        metadata:
+          additionalProperties:
+            type: string
+          description: "Your own key-value text (up to 20 keys; keys 1–40 letters,\
+            \ digits, dot, dash or underscore; values up to 500 characters). Returned\
+            \ in every response and every webhook for this document; never shown to\
+            \ a signer."
+          example:
+            crmDealId: D-1042
         emailed:
           description: How many signing emails went out now.
-          type: integer
         notEmailed:
           description: "Anyone who was NOT emailed, and why (for example `limit_reached`:\
             \ the daily email limit). The document is still sent; fetch their link\
             \ or send a reminder later."
           items:
             $ref: '#/components/schemas/sendDocument_201_response_notEmailed_inner'
-          type: array
       required:
       - emailed
       - id
@@ -10864,6 +10835,7 @@ components:
           - document
           type: string
     draftWithAi_202_response:
+      additionalProperties: {}
       example:
         jobId: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
         state: state
@@ -10924,6 +10896,7 @@ components:
             remind everyone who is up.
           type: string
     remind_200_response:
+      additionalProperties: {}
       example:
         reminded: 0
         id: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
@@ -10951,6 +10924,7 @@ components:
       - origin
       - seat
     embedSession_200_response:
+      additionalProperties: {}
       example:
         seat: seat
         id: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
@@ -10965,7 +10939,6 @@ components:
           type: string
         url:
           format: uri
-          type: string
         expiresAt:
           type: string
       required:
@@ -10974,6 +10947,7 @@ components:
       - seat
       - url
     listTeams_200_response_teams_inner_members_inner:
+      additionalProperties: {}
       example:
         name: name
         id: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
@@ -10988,6 +10962,7 @@ components:
       - id
       - name
     listTeams_200_response_teams_inner:
+      additionalProperties: {}
       example:
         documents: 0
         members:
@@ -11008,7 +10983,6 @@ components:
         members:
           items:
             $ref: '#/components/schemas/listTeams_200_response_teams_inner_members_inner'
-          type: array
         documents:
           type: integer
         templates:
@@ -11020,6 +10994,7 @@ components:
       - name
       - templates
     listTeams_200_response:
+      additionalProperties: {}
       example:
         teams:
         - documents: 0
@@ -11044,10 +11019,10 @@ components:
         teams:
           items:
             $ref: '#/components/schemas/listTeams_200_response_teams_inner'
-          type: array
       required:
       - teams
     listEmailTemplates_200_response:
+      additionalProperties: {}
       example:
         templates:
         - key: ""
@@ -11056,10 +11031,10 @@ components:
         templates:
           items:
             additionalProperties: {}
-          type: array
       required:
       - templates
     listEmails_200_response:
+      additionalProperties: {}
       example:
         emails:
         - key: ""
@@ -11069,10 +11044,7 @@ components:
         emails:
           items:
             additionalProperties: {}
-          type: array
-        nextCursor:
-          nullable: true
-          type: string
+        nextCursor: {}
       required:
       - emails
       - nextCursor
@@ -11085,6 +11057,7 @@ components:
       required:
       - seat
     testSign_200_response_progress:
+      additionalProperties: {}
       example:
         of: 6
         signed: 0
@@ -11097,6 +11070,7 @@ components:
       - of
       - signed
     testSign_200_response:
+      additionalProperties: {}
       example:
         seat: seat
         signed: true
@@ -11134,6 +11108,7 @@ components:
           maxLength: 500
           type: string
     voidDocument_200_response:
+      additionalProperties: {}
       example:
         id: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
         state: state
@@ -11177,6 +11152,7 @@ components:
       required:
       - source
     checkDocument_200_response:
+      additionalProperties: {}
       example:
         warnings:
         - ""
@@ -11194,19 +11170,17 @@ components:
         errors:
           items:
             type: string
-          type: array
         warnings:
           items: {}
-          type: array
         roles:
           items: {}
-          type: array
       required:
       - errors
       - ok
       - roles
       - warnings
     getDraftSource_200_response:
+      additionalProperties: {}
       example:
         variableValues:
           key: variableValues
@@ -11252,10 +11226,8 @@ components:
           type: string
         roles:
           items: {}
-          type: array
         people:
           items: {}
-          type: array
         sendOptions:
           additionalProperties: {}
       required:
@@ -11292,6 +11264,7 @@ components:
       required:
       - source
     reviseDocument_201_response:
+      additionalProperties: {}
       example:
         previousId: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
         warnings:
@@ -11309,12 +11282,12 @@ components:
           type: string
         warnings:
           items: {}
-          type: array
       required:
       - id
       - previousId
       - warnings
     sendDraft_201_response:
+      additionalProperties: {}
       example:
         notEmailed:
         - ""
@@ -11333,13 +11306,13 @@ components:
           type: integer
         notEmailed:
           items: {}
-          type: array
       required:
       - emailed
       - id
       - notEmailed
       - state
     sendDraft_202_response_approval:
+      additionalProperties: {}
       description: "Set when a draft-only key asked to send: a person approves or\
         \ declines in the app, and the document stays a draft until then."
       example:
@@ -11357,6 +11330,7 @@ components:
       - id
       - status
     sendDraft_202_response:
+      additionalProperties: {}
       example:
         approval:
           instanceId: instanceId
@@ -11435,6 +11409,7 @@ components:
         send:
           $ref: '#/components/schemas/SendChoices'
     setTemplateDefaults_200_response:
+      additionalProperties: {}
       example:
         saved: true
         templateId: 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e
@@ -11491,6 +11466,7 @@ components:
       - request
       - source
     paymentsStatus_200_response:
+      additionalProperties: {}
       example:
         mode: mode
         status: connected
@@ -11500,10 +11476,7 @@ components:
           - connected
           - needs_attention
           - not_connected
-          type: string
-        mode:
-          nullable: true
-          type: string
+        mode: {}
       required:
       - mode
       - status
@@ -11635,6 +11608,7 @@ components:
       required:
       - open
     listWebhookTopics_200_response:
+      additionalProperties: {}
       example:
         topics:
         - topics
@@ -11643,10 +11617,10 @@ components:
         topics:
           items:
             type: string
-          type: array
       required:
       - topics
     listWebhooks_200_response:
+      additionalProperties: {}
       example:
         webhooks:
         - disabledReason: disabledReason
@@ -11677,7 +11651,6 @@ components:
         webhooks:
           items:
             $ref: '#/components/schemas/WebhookEndpoint'
-          type: array
       required:
       - webhooks
     createWebhook_request:
@@ -11703,7 +11676,8 @@ components:
     createWebhook_201_response:
       allOf:
       - $ref: '#/components/schemas/WebhookEndpoint'
-      - properties:
+      - additionalProperties: {}
+        properties:
           secret:
             type: string
         required:
@@ -11723,12 +11697,12 @@ components:
         url: url
         status: active
     deleteWebhook_200_response:
+      additionalProperties: {}
       example:
         ok: true
       properties:
         ok:
           example: true
-          type: boolean
       required:
       - ok
     testWebhook_request:
@@ -11747,16 +11721,10 @@ components:
       properties:
         outcome:
           type: string
-        status:
-          nullable: true
-          type: number
+        status: {}
         durationMs: {}
-        responseExcerpt:
-          nullable: true
-          type: string
-        error:
-          nullable: true
-          type: string
+        responseExcerpt: {}
+        error: {}
         topic:
           type: string
       required:
@@ -11773,6 +11741,7 @@ components:
           minimum: 1
           type: integer
     rotateWebhookSecret_200_response:
+      additionalProperties: {}
       example:
         previousValidUntil: previousValidUntil
         fingerprint: fingerprint
@@ -11789,6 +11758,7 @@ components:
       - previousValidUntil
       - secret
     listWebhookDeliveries_200_response_deliveries_inner:
+      additionalProperties: {}
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         event: event
@@ -11807,12 +11777,8 @@ components:
           type: integer
         status:
           type: string
-        responseStatus:
-          nullable: true
-          type: number
-        error:
-          nullable: true
-          type: string
+        responseStatus: {}
+        error: {}
         attemptedAt:
           type: string
       required:
@@ -11824,6 +11790,7 @@ components:
       - responseStatus
       - status
     listWebhookDeliveries_200_response:
+      additionalProperties: {}
       example:
         deliveries:
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -11844,10 +11811,10 @@ components:
         deliveries:
           items:
             $ref: '#/components/schemas/listWebhookDeliveries_200_response_deliveries_inner'
-          type: array
       required:
       - deliveries
     fetchRelayEvents_200_response_events_inner:
+      additionalProperties: {}
       example:
         headers:
           key: headers
@@ -11859,9 +11826,7 @@ components:
         id:
           format: uuid
           type: string
-        topic:
-          nullable: true
-          type: string
+        topic: {}
         headers:
           additionalProperties:
             type: string
@@ -11876,6 +11841,7 @@ components:
       - id
       - topic
     fetchRelayEvents_200_response:
+      additionalProperties: {}
       example:
         cursor: cursor
         events:
@@ -11895,10 +11861,7 @@ components:
         events:
           items:
             $ref: '#/components/schemas/fetchRelayEvents_200_response_events_inner'
-          type: array
-        cursor:
-          nullable: true
-          type: string
+        cursor: {}
       required:
       - cursor
       - events
@@ -11970,14 +11933,13 @@ components:
       required:
       - "on"
     Template_seats_inner:
+      additionalProperties: true
       example:
         label: label
         key: key
       properties:
-        key:
-          type: string
-        label:
-          type: string
+        key: {}
+        label: {}
       required:
       - key
       - label
@@ -12012,19 +11974,32 @@ components:
         retryable:
           type: boolean
         detail:
-          additionalProperties: {}
+          additionalProperties: true
+          type: object
       required:
       - kind
       - message
+    Document_progress:
+      additionalProperties: true
+      example:
+        of: 6
+        signed: 0
+      properties:
+        signed:
+          type: integer
+        of:
+          type: integer
+      required:
+      - of
+      - signed
     Document_events_inner:
+      additionalProperties: true
       example:
         at: at
         kind: kind
         text: text
       properties:
-        at:
-          nullable: true
-          type: string
+        at: {}
         kind:
           type: string
         text:
@@ -12034,6 +12009,7 @@ components:
       - kind
       - text
     Payment_fee:
+      additionalProperties: true
       description: "Docustay's platform fee on this payment, on top of Stripe's own\
         \ fees (which Stripe charges to your own Stripe account)."
       example:
@@ -12046,16 +12022,11 @@ components:
           description: "Docustay's fee, decided when the payment started: 200 (2%)\
             \ on the Free plan, 0 on Pro."
           example: 200
-          type: integer
         amountMinor:
           example: 300
-          type: integer
         refundedMinor:
           description: How much of the fee went back with refunds.
-          type: integer
-        plan:
-          nullable: true
-          type: string
+        plan: {}
       required:
       - amountMinor
       - basisPoints
@@ -12100,6 +12071,7 @@ components:
       - name
       - seat
     TemplateMade_warnings_inner:
+      additionalProperties: true
       example:
         warning: warning
         tag: tag
@@ -12112,6 +12084,7 @@ components:
       - tag
       - warning
     TemplateMade_detected:
+      additionalProperties: true
       description: "Present when the page itself was looked at (a file without text\
         \ tags): how many fields were found, how many seats, how many it was unsure\
         \ of, and how many were placed (`fields: auto`)."
@@ -12223,23 +12196,26 @@ components:
       - resetsAt
       - used
     DetectFieldsResult_pages_inner:
-      additionalProperties: {}
+      additionalProperties: true
       example:
         kind: form
         page: 7
         fields: 9
       properties:
-        page: {}
+        page:
+          type: integer
         kind:
           enum:
           - form
           - reference
-        fields: {}
+        fields:
+          type: integer
       required:
       - fields
       - kind
       - page
     DetectFieldsResult_documents_inner:
+      additionalProperties: true
       example:
         kind: form
         from: 3
@@ -12254,16 +12230,14 @@ components:
           enum:
           - form
           - reference
-          type: string
-        title:
-          nullable: true
-          type: string
+        title: {}
       required:
       - from
       - kind
       - title
       - to
     DetectFieldsResult_summary:
+      additionalProperties: true
       example:
         signers: 7
         cached: true
@@ -12288,26 +12262,27 @@ components:
       - truncated
       - uncertain
     AiUsage_byFeature_value:
+      additionalProperties: true
       example:
         calls: 5.637376656633329
         credits: 2.3021358869347655
       properties:
-        calls:
-          type: number
-        credits:
-          type: number
+        calls: {}
+        credits: {}
       required:
       - calls
       - credits
     AiUsage_thinkHarder:
-      additionalProperties: {}
+      additionalProperties: true
       example:
         available: true
       properties:
-        available: {}
+        available:
+          type: boolean
       required:
       - available
     Report_window:
+      additionalProperties: true
       example:
         days: 0
         from: from
@@ -12324,6 +12299,7 @@ components:
       - from
       - to
     Report_totals:
+      additionalProperties: true
       example:
         declined: 5
         expired: 5
@@ -12347,15 +12323,9 @@ components:
           type: integer
         waitingNow:
           type: integer
-        completionRate:
-          nullable: true
-          type: number
-        averageHoursToComplete:
-          nullable: true
-          type: number
-        medianHoursToComplete:
-          nullable: true
-          type: number
+        completionRate: {}
+        averageHoursToComplete: {}
+        medianHoursToComplete: {}
       required:
       - averageHoursToComplete
       - completed
@@ -12367,6 +12337,7 @@ components:
       - voided
       - waitingNow
     Report_byDay_inner:
+      additionalProperties: true
       example:
         date: date
         completed: 7
@@ -12383,6 +12354,7 @@ components:
       - date
       - sent
     Report_byTemplate_inner:
+      additionalProperties: true
       example:
         name: name
         completed: 1
@@ -12398,6 +12370,38 @@ components:
       - completed
       - name
       - sent
+    Report_byTeam_inner:
+      additionalProperties: true
+      example:
+        name: name
+        completed: 6
+        sent: 1
+      properties:
+        name: {}
+        sent: {}
+        completed: {}
+      required:
+      - completed
+      - name
+      - sent
+    DocumentMade_approval:
+      additionalProperties: true
+      description: "Set when a draft-only key asked to send: a person approves or\
+        \ declines in the app, and the document stays a draft until then."
+      example:
+        instanceId: instanceId
+        id: id
+        status: status
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        instanceId:
+          type: string
+      required:
+      - id
+      - status
     FormSettings_counterSign:
       properties:
         "on":

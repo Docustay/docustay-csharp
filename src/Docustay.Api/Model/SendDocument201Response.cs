@@ -36,15 +36,20 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="SendDocument201Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected SendDocument201Response() { }
+        protected SendDocument201Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="SendDocument201Response" /> class.
         /// </summary>
         /// <param name="id">id (required).</param>
         /// <param name="state">state (required).</param>
+        /// <param name="externalId">Your own id for this thing, so you can match it to your records. Filter lists with &#x60;externalId&#x3D;&#x60;..</param>
+        /// <param name="metadata">Your own key-value text (up to 20 keys; keys 1–40 letters, digits, dot, dash or underscore; values up to 500 characters). Returned in every response and every webhook for this document; never shown to a signer..</param>
         /// <param name="emailed">How many signing emails went out now. (required).</param>
         /// <param name="notEmailed">Anyone who was NOT emailed, and why (for example &#x60;limit_reached&#x60;: the daily email limit). The document is still sent; fetch their link or send a reminder later. (required).</param>
-        public SendDocument201Response(Guid id = default(Guid), string state = default(string), int emailed = default(int), List<SendDocument201ResponseNotEmailedInner> notEmailed = default(List<SendDocument201ResponseNotEmailedInner>))
+        public SendDocument201Response(Guid id = default(Guid), string state = default(string), string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), int emailed = default(int), List<SendDocument201ResponseNotEmailedInner> notEmailed = default(List<SendDocument201ResponseNotEmailedInner>))
         {
             this.Id = id;
             // to ensure "state" is required (not null)
@@ -60,6 +65,9 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("notEmailed is a required property for SendDocument201Response and cannot be null");
             }
             this.NotEmailed = notEmailed;
+            this.ExternalId = externalId;
+            this.Metadata = metadata;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -78,6 +86,26 @@ namespace Docustay.Api.Model
         public string State { get; set; }
 
         /// <summary>
+        /// Your own id for this thing, so you can match it to your records. Filter lists with &#x60;externalId&#x3D;&#x60;.
+        /// </summary>
+        /// <value>Your own id for this thing, so you can match it to your records. Filter lists with &#x60;externalId&#x3D;&#x60;.</value>
+        /*
+        <example>contract-2026-0042</example>
+        */
+        [DataMember(Name = "externalId", EmitDefaultValue = false)]
+        public string ExternalId { get; set; }
+
+        /// <summary>
+        /// Your own key-value text (up to 20 keys; keys 1–40 letters, digits, dot, dash or underscore; values up to 500 characters). Returned in every response and every webhook for this document; never shown to a signer.
+        /// </summary>
+        /// <value>Your own key-value text (up to 20 keys; keys 1–40 letters, digits, dot, dash or underscore; values up to 500 characters). Returned in every response and every webhook for this document; never shown to a signer.</value>
+        /*
+        <example>{crmDealId&#x3D;D-1042}</example>
+        */
+        [DataMember(Name = "metadata", EmitDefaultValue = false)]
+        public Dictionary<string, string> Metadata { get; set; }
+
+        /// <summary>
         /// How many signing emails went out now.
         /// </summary>
         /// <value>How many signing emails went out now.</value>
@@ -92,6 +120,12 @@ namespace Docustay.Api.Model
         public List<SendDocument201ResponseNotEmailedInner> NotEmailed { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -101,8 +135,11 @@ namespace Docustay.Api.Model
             sb.Append("class SendDocument201Response {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
+            sb.Append("  ExternalId: ").Append(ExternalId).Append("\n");
+            sb.Append("  Metadata: ").Append(Metadata).Append("\n");
             sb.Append("  Emailed: ").Append(Emailed).Append("\n");
             sb.Append("  NotEmailed: ").Append(NotEmailed).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -123,6 +160,18 @@ namespace Docustay.Api.Model
         /// <returns>Validation Result</returns>
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            // ExternalId (string) maxLength
+            if (this.ExternalId != null && this.ExternalId.Length > 200)
+            {
+                yield return new ValidationResult("Invalid value for ExternalId, length must be less than 200.", new [] { "ExternalId" });
+            }
+
+            // ExternalId (string) minLength
+            if (this.ExternalId != null && this.ExternalId.Length < 1)
+            {
+                yield return new ValidationResult("Invalid value for ExternalId, length must be greater than 1.", new [] { "ExternalId" });
+            }
+
             yield break;
         }
     }

@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="Report" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected Report() { }
+        protected Report()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Report" /> class.
         /// </summary>
@@ -47,7 +50,7 @@ namespace Docustay.Api.Model
         /// <param name="byTemplate">byTemplate (required).</param>
         /// <param name="byTeam">byTeam (required).</param>
         /// <param name="bySender">bySender (required).</param>
-        public Report(ReportWindow window = default(ReportWindow), string timezone = default(string), ReportTotals totals = default(ReportTotals), List<ReportByDayInner> byDay = default(List<ReportByDayInner>), List<ReportByTemplateInner> byTemplate = default(List<ReportByTemplateInner>), List<ReportByTemplateInner> byTeam = default(List<ReportByTemplateInner>), List<ReportByTemplateInner> bySender = default(List<ReportByTemplateInner>))
+        public Report(ReportWindow window = default(ReportWindow), string timezone = default(string), ReportTotals totals = default(ReportTotals), List<ReportByDayInner> byDay = default(List<ReportByDayInner>), List<ReportByTemplateInner> byTemplate = default(List<ReportByTemplateInner>), List<ReportByTeamInner> byTeam = default(List<ReportByTeamInner>), List<ReportByTeamInner> bySender = default(List<ReportByTeamInner>))
         {
             // to ensure "window" is required (not null)
             if (window == null)
@@ -91,6 +94,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("bySender is a required property for Report and cannot be null");
             }
             this.BySender = bySender;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -127,13 +131,19 @@ namespace Docustay.Api.Model
         /// Gets or Sets ByTeam
         /// </summary>
         [DataMember(Name = "byTeam", IsRequired = true, EmitDefaultValue = true)]
-        public List<ReportByTemplateInner> ByTeam { get; set; }
+        public List<ReportByTeamInner> ByTeam { get; set; }
 
         /// <summary>
         /// Gets or Sets BySender
         /// </summary>
         [DataMember(Name = "bySender", IsRequired = true, EmitDefaultValue = true)]
-        public List<ReportByTemplateInner> BySender { get; set; }
+        public List<ReportByTeamInner> BySender { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -150,6 +160,7 @@ namespace Docustay.Api.Model
             sb.Append("  ByTemplate: ").Append(ByTemplate).Append("\n");
             sb.Append("  ByTeam: ").Append(ByTeam).Append("\n");
             sb.Append("  BySender: ").Append(BySender).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

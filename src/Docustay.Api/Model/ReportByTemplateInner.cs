@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ReportByTemplateInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ReportByTemplateInner() { }
+        protected ReportByTemplateInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportByTemplateInner" /> class.
         /// </summary>
@@ -53,6 +56,7 @@ namespace Docustay.Api.Model
             this.Name = name;
             this.Sent = sent;
             this.Completed = completed;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -74,6 +78,12 @@ namespace Docustay.Api.Model
         public int Completed { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -84,6 +94,7 @@ namespace Docustay.Api.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Sent: ").Append(Sent).Append("\n");
             sb.Append("  Completed: ").Append(Completed).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

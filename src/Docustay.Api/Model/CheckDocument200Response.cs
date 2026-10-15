@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="CheckDocument200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected CheckDocument200Response() { }
+        protected CheckDocument200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckDocument200Response" /> class.
         /// </summary>
@@ -65,6 +68,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("roles is a required property for CheckDocument200Response and cannot be null");
             }
             this.Roles = roles;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -92,6 +96,12 @@ namespace Docustay.Api.Model
         public List<Object> Roles { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -103,6 +113,7 @@ namespace Docustay.Api.Model
             sb.Append("  Errors: ").Append(Errors).Append("\n");
             sb.Append("  Warnings: ").Append(Warnings).Append("\n");
             sb.Append("  Roles: ").Append(Roles).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ReportTotals" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ReportTotals() { }
+        protected ReportTotals()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportTotals" /> class.
         /// </summary>
@@ -49,7 +52,7 @@ namespace Docustay.Api.Model
         /// <param name="completionRate">completionRate (required).</param>
         /// <param name="averageHoursToComplete">averageHoursToComplete (required).</param>
         /// <param name="medianHoursToComplete">medianHoursToComplete (required).</param>
-        public ReportTotals(int sent = default(int), int completed = default(int), int declined = default(int), int expired = default(int), int voided = default(int), int waitingNow = default(int), decimal? completionRate = default(decimal?), decimal? averageHoursToComplete = default(decimal?), decimal? medianHoursToComplete = default(decimal?))
+        public ReportTotals(int sent = default(int), int completed = default(int), int declined = default(int), int expired = default(int), int voided = default(int), int waitingNow = default(int), decimal completionRate = default(decimal), decimal averageHoursToComplete = default(decimal), decimal medianHoursToComplete = default(decimal))
         {
             this.Sent = sent;
             this.Completed = completed;
@@ -57,24 +60,10 @@ namespace Docustay.Api.Model
             this.Expired = expired;
             this.Voided = voided;
             this.WaitingNow = waitingNow;
-            // to ensure "completionRate" is required (not null)
-            if (completionRate == null)
-            {
-                throw new ArgumentNullException("completionRate is a required property for ReportTotals and cannot be null");
-            }
             this.CompletionRate = completionRate;
-            // to ensure "averageHoursToComplete" is required (not null)
-            if (averageHoursToComplete == null)
-            {
-                throw new ArgumentNullException("averageHoursToComplete is a required property for ReportTotals and cannot be null");
-            }
             this.AverageHoursToComplete = averageHoursToComplete;
-            // to ensure "medianHoursToComplete" is required (not null)
-            if (medianHoursToComplete == null)
-            {
-                throw new ArgumentNullException("medianHoursToComplete is a required property for ReportTotals and cannot be null");
-            }
             this.MedianHoursToComplete = medianHoursToComplete;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -117,19 +106,25 @@ namespace Docustay.Api.Model
         /// Gets or Sets CompletionRate
         /// </summary>
         [DataMember(Name = "completionRate", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? CompletionRate { get; set; }
+        public decimal CompletionRate { get; set; }
 
         /// <summary>
         /// Gets or Sets AverageHoursToComplete
         /// </summary>
         [DataMember(Name = "averageHoursToComplete", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? AverageHoursToComplete { get; set; }
+        public decimal AverageHoursToComplete { get; set; }
 
         /// <summary>
         /// Gets or Sets MedianHoursToComplete
         /// </summary>
         [DataMember(Name = "medianHoursToComplete", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? MedianHoursToComplete { get; set; }
+        public decimal MedianHoursToComplete { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -148,6 +143,7 @@ namespace Docustay.Api.Model
             sb.Append("  CompletionRate: ").Append(CompletionRate).Append("\n");
             sb.Append("  AverageHoursToComplete: ").Append(AverageHoursToComplete).Append("\n");
             sb.Append("  MedianHoursToComplete: ").Append(MedianHoursToComplete).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

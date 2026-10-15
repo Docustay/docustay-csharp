@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Mode** | **string** |  | 
 **Plan** | **string** |  | 
-**Allowance** | **decimal?** |  | 
-**Used** | **decimal?** |  | 
-**Remaining** | **decimal?** |  | 
-**Percent** | **decimal?** |  | 
+**Allowance** | **decimal** |  | 
+**Used** | **decimal** |  | 
+**Remaining** | **decimal** |  | 
+**Percent** | **decimal** |  | 
 **State** | **string** |  | 
 **ResetsAt** | **string** |  | 
 **ByFeature** | [**Dictionary&lt;string, AiUsageByFeatureValue&gt;**](AiUsageByFeatureValue.md) |  | 

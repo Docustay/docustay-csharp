@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="SendDraft201Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected SendDraft201Response() { }
+        protected SendDraft201Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="SendDraft201Response" /> class.
         /// </summary>
@@ -60,6 +63,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("notEmailed is a required property for SendDraft201Response and cannot be null");
             }
             this.NotEmailed = notEmailed;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -90,6 +94,12 @@ namespace Docustay.Api.Model
         public List<Object> NotEmailed { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -101,6 +111,7 @@ namespace Docustay.Api.Model
             sb.Append("  State: ").Append(State).Append("\n");
             sb.Append("  Emailed: ").Append(Emailed).Append("\n");
             sb.Append("  NotEmailed: ").Append(NotEmailed).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

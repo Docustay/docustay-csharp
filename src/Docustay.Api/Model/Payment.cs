@@ -81,7 +81,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="Payment" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected Payment() { }
+        protected Payment()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Payment" /> class.
         /// </summary>
@@ -139,6 +142,7 @@ namespace Docustay.Api.Model
             }
             this.Fee = fee;
             this.Test = test;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -213,6 +217,12 @@ namespace Docustay.Api.Model
         public bool Test { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -231,6 +241,7 @@ namespace Docustay.Api.Model
             sb.Append("  RefundedMinor: ").Append(RefundedMinor).Append("\n");
             sb.Append("  Fee: ").Append(Fee).Append("\n");
             sb.Append("  Test: ").Append(Test).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

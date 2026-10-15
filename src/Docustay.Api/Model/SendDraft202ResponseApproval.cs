@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="SendDraft202ResponseApproval" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected SendDraft202ResponseApproval() { }
+        protected SendDraft202ResponseApproval()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="SendDraft202ResponseApproval" /> class.
         /// </summary>
@@ -58,6 +61,7 @@ namespace Docustay.Api.Model
             }
             this.Status = status;
             this.InstanceId = instanceId;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -79,6 +83,12 @@ namespace Docustay.Api.Model
         public string InstanceId { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -89,6 +99,7 @@ namespace Docustay.Api.Model
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  InstanceId: ").Append(InstanceId).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

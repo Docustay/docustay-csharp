@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="GetDraftSource200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected GetDraftSource200Response() { }
+        protected GetDraftSource200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDraftSource200Response" /> class.
         /// </summary>
@@ -107,6 +110,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("sendOptions is a required property for GetDraftSource200Response and cannot be null");
             }
             this.SendOptions = sendOptions;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -174,6 +178,12 @@ namespace Docustay.Api.Model
         public Dictionary<string, Object> SendOptions { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -191,6 +201,7 @@ namespace Docustay.Api.Model
             sb.Append("  Roles: ").Append(Roles).Append("\n");
             sb.Append("  People: ").Append(People).Append("\n");
             sb.Append("  SendOptions: ").Append(SendOptions).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

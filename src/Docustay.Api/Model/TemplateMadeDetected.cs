@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="TemplateMadeDetected" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected TemplateMadeDetected() { }
+        protected TemplateMadeDetected()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateMadeDetected" /> class.
         /// </summary>
@@ -50,6 +53,7 @@ namespace Docustay.Api.Model
             this.Signers = signers;
             this.LowConfidence = lowConfidence;
             this.Placed = placed;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -77,6 +81,12 @@ namespace Docustay.Api.Model
         public int Placed { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -88,6 +98,7 @@ namespace Docustay.Api.Model
             sb.Append("  Signers: ").Append(Signers).Append("\n");
             sb.Append("  LowConfidence: ").Append(LowConfidence).Append("\n");
             sb.Append("  Placed: ").Append(Placed).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

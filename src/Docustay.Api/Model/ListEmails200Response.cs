@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListEmails200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListEmails200Response() { }
+        protected ListEmails200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListEmails200Response" /> class.
         /// </summary>
@@ -56,6 +59,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("nextCursor is a required property for ListEmails200Response and cannot be null");
             }
             this.NextCursor = nextCursor;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -71,6 +75,12 @@ namespace Docustay.Api.Model
         public string NextCursor { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -80,6 +90,7 @@ namespace Docustay.Api.Model
             sb.Append("class ListEmails200Response {\n");
             sb.Append("  Emails: ").Append(Emails).Append("\n");
             sb.Append("  NextCursor: ").Append(NextCursor).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

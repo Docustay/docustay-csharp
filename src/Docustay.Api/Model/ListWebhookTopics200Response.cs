@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListWebhookTopics200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListWebhookTopics200Response() { }
+        protected ListWebhookTopics200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListWebhookTopics200Response" /> class.
         /// </summary>
@@ -49,6 +52,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("topics is a required property for ListWebhookTopics200Response and cannot be null");
             }
             this.Topics = topics;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -56,6 +60,12 @@ namespace Docustay.Api.Model
         /// </summary>
         [DataMember(Name = "topics", IsRequired = true, EmitDefaultValue = true)]
         public List<string> Topics { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -66,6 +76,7 @@ namespace Docustay.Api.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class ListWebhookTopics200Response {\n");
             sb.Append("  Topics: ").Append(Topics).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

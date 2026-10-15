@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListDocuments200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListDocuments200Response() { }
+        protected ListDocuments200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListDocuments200Response" /> class.
         /// </summary>
@@ -56,6 +59,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("page is a required property for ListDocuments200Response and cannot be null");
             }
             this.Page = page;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -71,6 +75,12 @@ namespace Docustay.Api.Model
         public ListDocuments200ResponsePage Page { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -80,6 +90,7 @@ namespace Docustay.Api.Model
             sb.Append("class ListDocuments200Response {\n");
             sb.Append("  Documents: ").Append(Documents).Append("\n");
             sb.Append("  Page: ").Append(Page).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

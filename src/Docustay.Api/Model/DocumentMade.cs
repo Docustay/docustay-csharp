@@ -61,7 +61,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="DocumentMade" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected DocumentMade() { }
+        protected DocumentMade()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentMade" /> class.
         /// </summary>
@@ -74,7 +77,7 @@ namespace Docustay.Api.Model
         /// <param name="emailed">emailed.</param>
         /// <param name="notEmailed">notEmailed.</param>
         /// <param name="warnings">warnings.</param>
-        public DocumentMade(SendDraft202ResponseApproval approval = default(SendDraft202ResponseApproval), string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), Guid id = default(Guid), StateEnum state = default(StateEnum), List<TemplateSeatsInner> roles = default(List<TemplateSeatsInner>), int emailed = default(int), List<Object> notEmailed = default(List<Object>), List<Object> warnings = default(List<Object>))
+        public DocumentMade(DocumentMadeApproval approval = default(DocumentMadeApproval), string externalId = default(string), Dictionary<string, string> metadata = default(Dictionary<string, string>), Guid id = default(Guid), StateEnum state = default(StateEnum), List<TemplateSeatsInner> roles = default(List<TemplateSeatsInner>), int emailed = default(int), List<Object> notEmailed = default(List<Object>), List<Object> warnings = default(List<Object>))
         {
             this.Id = id;
             this.State = state;
@@ -85,13 +88,14 @@ namespace Docustay.Api.Model
             this.Emailed = emailed;
             this.NotEmailed = notEmailed;
             this.Warnings = warnings;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
         /// Gets or Sets Approval
         /// </summary>
         [DataMember(Name = "approval", EmitDefaultValue = false)]
-        public SendDraft202ResponseApproval Approval { get; set; }
+        public DocumentMadeApproval Approval { get; set; }
 
         /// <summary>
         /// Your own id for this thing, so you can match it to your records. Filter lists with &#x60;externalId&#x3D;&#x60;.
@@ -100,7 +104,7 @@ namespace Docustay.Api.Model
         /*
         <example>contract-2026-0042</example>
         */
-        [DataMember(Name = "externalId", EmitDefaultValue = true)]
+        [DataMember(Name = "externalId", EmitDefaultValue = false)]
         public string ExternalId { get; set; }
 
         /// <summary>
@@ -147,6 +151,12 @@ namespace Docustay.Api.Model
         public List<Object> Warnings { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -163,6 +173,7 @@ namespace Docustay.Api.Model
             sb.Append("  Emailed: ").Append(Emailed).Append("\n");
             sb.Append("  NotEmailed: ").Append(NotEmailed).Append("\n");
             sb.Append("  Warnings: ").Append(Warnings).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

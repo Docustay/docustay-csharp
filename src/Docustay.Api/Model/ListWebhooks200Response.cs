@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ListWebhooks200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ListWebhooks200Response() { }
+        protected ListWebhooks200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ListWebhooks200Response" /> class.
         /// </summary>
@@ -49,6 +52,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("webhooks is a required property for ListWebhooks200Response and cannot be null");
             }
             this.Webhooks = webhooks;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -56,6 +60,12 @@ namespace Docustay.Api.Model
         /// </summary>
         [DataMember(Name = "webhooks", IsRequired = true, EmitDefaultValue = true)]
         public List<WebhookEndpoint> Webhooks { get; set; }
+
+        /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -66,6 +76,7 @@ namespace Docustay.Api.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class ListWebhooks200Response {\n");
             sb.Append("  Webhooks: ").Append(Webhooks).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

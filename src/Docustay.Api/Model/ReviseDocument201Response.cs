@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="ReviseDocument201Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ReviseDocument201Response() { }
+        protected ReviseDocument201Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="ReviseDocument201Response" /> class.
         /// </summary>
@@ -53,6 +56,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("warnings is a required property for ReviseDocument201Response and cannot be null");
             }
             this.Warnings = warnings;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -80,6 +84,12 @@ namespace Docustay.Api.Model
         public List<Object> Warnings { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -90,6 +100,7 @@ namespace Docustay.Api.Model
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  PreviousId: ").Append(PreviousId).Append("\n");
             sb.Append("  Warnings: ").Append(Warnings).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

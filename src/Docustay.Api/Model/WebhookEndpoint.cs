@@ -67,7 +67,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="WebhookEndpoint" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected WebhookEndpoint() { }
+        protected WebhookEndpoint()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="WebhookEndpoint" /> class.
         /// </summary>
@@ -123,6 +126,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("createdAt is a required property for WebhookEndpoint and cannot be null");
             }
             this.CreatedAt = createdAt;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -181,6 +185,12 @@ namespace Docustay.Api.Model
         public string CreatedAt { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -198,6 +208,7 @@ namespace Docustay.Api.Model
             sb.Append("  ConsecutiveFailures: ").Append(ConsecutiveFailures).Append("\n");
             sb.Append("  Fingerprint: ").Append(Fingerprint).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

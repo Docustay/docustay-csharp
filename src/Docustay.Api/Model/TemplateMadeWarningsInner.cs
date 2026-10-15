@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="TemplateMadeWarningsInner" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected TemplateMadeWarningsInner() { }
+        protected TemplateMadeWarningsInner()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateMadeWarningsInner" /> class.
         /// </summary>
@@ -56,6 +59,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("warning is a required property for TemplateMadeWarningsInner and cannot be null");
             }
             this.Warning = warning;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -71,6 +75,12 @@ namespace Docustay.Api.Model
         public string Warning { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -80,6 +90,7 @@ namespace Docustay.Api.Model
             sb.Append("class TemplateMadeWarningsInner {\n");
             sb.Append("  Tag: ").Append(Tag).Append("\n");
             sb.Append("  Warning: ").Append(Warning).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

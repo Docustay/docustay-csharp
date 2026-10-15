@@ -49,7 +49,7 @@ namespace Docustay.Api.Model
         /// <param name="responseExcerpt">responseExcerpt (required).</param>
         /// <param name="error">error (required).</param>
         /// <param name="topic">topic (required).</param>
-        public TestWebhook200Response(string outcome = default(string), decimal? status = default(decimal?), decimal durationMs = default(decimal), string responseExcerpt = default(string), string error = default(string), string topic = default(string))
+        public TestWebhook200Response(string outcome = default(string), decimal status = default(decimal), decimal durationMs = default(decimal), string responseExcerpt = default(string), string error = default(string), string topic = default(string))
         {
             // to ensure "outcome" is required (not null)
             if (outcome == null)
@@ -57,11 +57,6 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("outcome is a required property for TestWebhook200Response and cannot be null");
             }
             this.Outcome = outcome;
-            // to ensure "status" is required (not null)
-            if (status == null)
-            {
-                throw new ArgumentNullException("status is a required property for TestWebhook200Response and cannot be null");
-            }
             this.Status = status;
             this.DurationMs = durationMs;
             // to ensure "responseExcerpt" is required (not null)
@@ -95,7 +90,7 @@ namespace Docustay.Api.Model
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
-        public decimal? Status { get; set; }
+        public decimal Status { get; set; }
 
         /// <summary>
         /// Gets or Sets DurationMs

@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="Party" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected Party() { }
+        protected Party()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Party" /> class.
         /// </summary>
@@ -112,6 +115,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("declineReason is a required property for Party and cannot be null");
             }
             this.DeclineReason = declineReason;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -183,6 +187,12 @@ namespace Docustay.Api.Model
         public string DeclineReason { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -200,6 +210,7 @@ namespace Docustay.Api.Model
             sb.Append("  ViewedAt: ").Append(ViewedAt).Append("\n");
             sb.Append("  CompletedAt: ").Append(CompletedAt).Append("\n");
             sb.Append("  DeclineReason: ").Append(DeclineReason).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

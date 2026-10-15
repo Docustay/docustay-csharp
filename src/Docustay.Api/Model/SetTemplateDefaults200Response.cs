@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="SetTemplateDefaults200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected SetTemplateDefaults200Response() { }
+        protected SetTemplateDefaults200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="SetTemplateDefaults200Response" /> class.
         /// </summary>
@@ -46,6 +49,7 @@ namespace Docustay.Api.Model
         {
             this.TemplateId = templateId;
             this.Saved = saved;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -64,6 +68,12 @@ namespace Docustay.Api.Model
         public bool Saved { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -73,6 +83,7 @@ namespace Docustay.Api.Model
             sb.Append("class SetTemplateDefaults200Response {\n");
             sb.Append("  TemplateId: ").Append(TemplateId).Append("\n");
             sb.Append("  Saved: ").Append(Saved).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

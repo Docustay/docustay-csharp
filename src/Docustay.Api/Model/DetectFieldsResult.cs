@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="DetectFieldsResult" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected DetectFieldsResult() { }
+        protected DetectFieldsResult()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="DetectFieldsResult" /> class.
         /// </summary>
@@ -84,6 +87,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("notes is a required property for DetectFieldsResult and cannot be null");
             }
             this.Notes = notes;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -123,6 +127,12 @@ namespace Docustay.Api.Model
         public List<string> Notes { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -136,6 +146,7 @@ namespace Docustay.Api.Model
             sb.Append("  Documents: ").Append(Documents).Append("\n");
             sb.Append("  Summary: ").Append(Summary).Append("\n");
             sb.Append("  Notes: ").Append(Notes).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

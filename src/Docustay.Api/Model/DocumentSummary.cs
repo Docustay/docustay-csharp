@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="DocumentSummary" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected DocumentSummary() { }
+        protected DocumentSummary()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentSummary" /> class.
         /// </summary>
@@ -104,6 +107,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("expiresAt is a required property for DocumentSummary and cannot be null");
             }
             this.ExpiresAt = expiresAt;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -185,6 +189,12 @@ namespace Docustay.Api.Model
         public string ExpiresAt { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -203,6 +213,7 @@ namespace Docustay.Api.Model
             sb.Append("  SentAt: ").Append(SentAt).Append("\n");
             sb.Append("  ExecutedAt: ").Append(ExecutedAt).Append("\n");
             sb.Append("  ExpiresAt: ").Append(ExpiresAt).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

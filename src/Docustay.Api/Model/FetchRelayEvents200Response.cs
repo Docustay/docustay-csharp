@@ -36,7 +36,10 @@ namespace Docustay.Api.Model
         /// Initializes a new instance of the <see cref="FetchRelayEvents200Response" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected FetchRelayEvents200Response() { }
+        protected FetchRelayEvents200Response()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="FetchRelayEvents200Response" /> class.
         /// </summary>
@@ -56,6 +59,7 @@ namespace Docustay.Api.Model
                 throw new ArgumentNullException("cursor is a required property for FetchRelayEvents200Response and cannot be null");
             }
             this.Cursor = cursor;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -71,6 +75,12 @@ namespace Docustay.Api.Model
         public string Cursor { get; set; }
 
         /// <summary>
+        /// Gets or Sets additional properties
+        /// </summary>
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -80,6 +90,7 @@ namespace Docustay.Api.Model
             sb.Append("class FetchRelayEvents200Response {\n");
             sb.Append("  Events: ").Append(Events).Append("\n");
             sb.Append("  Cursor: ").Append(Cursor).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
