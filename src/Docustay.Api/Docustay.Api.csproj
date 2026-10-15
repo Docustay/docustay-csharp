@@ -12,7 +12,7 @@
     <Description>Official Docustay API client: send documents for signature and follow them from your own software. https://docustay.app/docs</Description>
     <Copyright>Copyright (c) 2026 GLRS LLC</Copyright>
     <RootNamespace>Docustay.Api</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Docustay.Api.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/Docustay/docustay-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

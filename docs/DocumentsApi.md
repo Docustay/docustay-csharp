@@ -319,7 +319,7 @@ catch (ApiException e)
 
 <a id="createdocument"></a>
 # **CreateDocument**
-> DocumentMade CreateDocument (CreateDocumentRequest createDocumentRequest)
+> DocumentMade CreateDocument (string idempotencyKey, CreateDocumentRequest createDocumentRequest)
 
 Make a document from words and people
 
@@ -345,12 +345,13 @@ namespace Example
             config.AccessToken = "YOUR_BEARER_TOKEN";
 
             var apiInstance = new DocumentsApi(config);
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var createDocumentRequest = new CreateDocumentRequest(); // CreateDocumentRequest | 
 
             try
             {
                 // Make a document from words and people
-                DocumentMade result = apiInstance.CreateDocument(createDocumentRequest);
+                DocumentMade result = apiInstance.CreateDocument(idempotencyKey, createDocumentRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -371,7 +372,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Make a document from words and people
-    ApiResponse<DocumentMade> response = apiInstance.CreateDocumentWithHttpInfo(createDocumentRequest);
+    ApiResponse<DocumentMade> response = apiInstance.CreateDocumentWithHttpInfo(idempotencyKey, createDocumentRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -388,6 +389,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **createDocumentRequest** | [**CreateDocumentRequest**](CreateDocumentRequest.md) |  |  |
 
 ### Return type
@@ -1589,7 +1591,7 @@ catch (ApiException e)
 
 <a id="revisedocument"></a>
 # **ReviseDocument**
-> ReviseDocument201Response ReviseDocument (Guid id, ReviseDocumentRequest reviseDocumentRequest)
+> ReviseDocument201Response ReviseDocument (Guid id, string idempotencyKey, ReviseDocumentRequest reviseDocumentRequest)
 
 Change the words of a draft
 
@@ -1616,12 +1618,13 @@ namespace Example
 
             var apiInstance = new DocumentsApi(config);
             var id = 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e;  // Guid | 
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var reviseDocumentRequest = new ReviseDocumentRequest(); // ReviseDocumentRequest | 
 
             try
             {
                 // Change the words of a draft
-                ReviseDocument201Response result = apiInstance.ReviseDocument(id, reviseDocumentRequest);
+                ReviseDocument201Response result = apiInstance.ReviseDocument(id, idempotencyKey, reviseDocumentRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1642,7 +1645,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Change the words of a draft
-    ApiResponse<ReviseDocument201Response> response = apiInstance.ReviseDocumentWithHttpInfo(id, reviseDocumentRequest);
+    ApiResponse<ReviseDocument201Response> response = apiInstance.ReviseDocumentWithHttpInfo(id, idempotencyKey, reviseDocumentRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1660,6 +1663,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **id** | **Guid** |  |  |
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **reviseDocumentRequest** | [**ReviseDocumentRequest**](ReviseDocumentRequest.md) |  |  |
 
 ### Return type
@@ -1790,7 +1794,7 @@ catch (ApiException e)
 
 <a id="senddocument"></a>
 # **SendDocument**
-> SendDocument201Response SendDocument (SendRequest sendRequest)
+> SendDocument201Response SendDocument (string idempotencyKey, SendRequest sendRequest)
 
 Send a template to people to sign
 
@@ -1816,12 +1820,13 @@ namespace Example
             config.AccessToken = "YOUR_BEARER_TOKEN";
 
             var apiInstance = new DocumentsApi(config);
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var sendRequest = new SendRequest(); // SendRequest | 
 
             try
             {
                 // Send a template to people to sign
-                SendDocument201Response result = apiInstance.SendDocument(sendRequest);
+                SendDocument201Response result = apiInstance.SendDocument(idempotencyKey, sendRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1842,7 +1847,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Send a template to people to sign
-    ApiResponse<SendDocument201Response> response = apiInstance.SendDocumentWithHttpInfo(sendRequest);
+    ApiResponse<SendDocument201Response> response = apiInstance.SendDocumentWithHttpInfo(idempotencyKey, sendRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1859,6 +1864,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **sendRequest** | [**SendRequest**](SendRequest.md) |  |  |
 
 ### Return type
@@ -1888,7 +1894,7 @@ catch (ApiException e)
 
 <a id="senddraft"></a>
 # **SendDraft**
-> SendDraft201Response SendDraft (Guid id)
+> SendDraft201Response SendDraft (Guid id, string idempotencyKey)
 
 Send a draft
 
@@ -1915,11 +1921,12 @@ namespace Example
 
             var apiInstance = new DocumentsApi(config);
             var id = 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e;  // Guid | 
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
 
             try
             {
                 // Send a draft
-                SendDraft201Response result = apiInstance.SendDraft(id);
+                SendDraft201Response result = apiInstance.SendDraft(id, idempotencyKey);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1940,7 +1947,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Send a draft
-    ApiResponse<SendDraft201Response> response = apiInstance.SendDraftWithHttpInfo(id);
+    ApiResponse<SendDraft201Response> response = apiInstance.SendDraftWithHttpInfo(id, idempotencyKey);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1958,6 +1965,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **id** | **Guid** |  |  |
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 
 ### Return type
 

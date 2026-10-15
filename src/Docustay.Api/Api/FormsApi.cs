@@ -1,7 +1,7 @@
 /*
  * Docustay API
  *
- * Send documents for signature and follow them, from your own software.  **Authentication.** Send `Authorization: Bearer <key>`. Make keys in Settings → Developers → API keys and give each only the scopes it needs: `accounts:read`, `accounts:write`, `booking:read`, `booking:write`, `documents:read`, `documents:write`, `growth:read`, `growth:write`, `items:read`, `items:write`, `lead:write`, `money:read`, `money:write`, `network:read`, `network:write`, `notifications:read`, `notifications:write`, `people:read`, `people:write`, `platform:read`, `platform:write`, `records:read`, `records:write`, `settings:read`, `settings:write`, `plays:read`, `plays:write`, `drafts:write`, `templates:read`, `templates:write`, `webhooks:read`, `webhooks:write`, `reports:read`, `account:read`, `embedded:write`. A key that starts `dsk_test_` works in **test mode**: documents it sends are practice runs (emailed only to the sender, stamped TEST, never counted or billed), it can only see and act on test documents (any other document answers `404`), and it can sign them itself with `POST /api/v1/documents/{id}/test-sign`. A key can also be limited to a list of addresses, given an expiry, or made **draft-only**.  **Draft-only keys.** A draft-only key can make and edit drafts but cannot send. Asking it to send answers `202` with an `approval`, the document stays a draft, and a person approves or declines in Settings → Developers → Approvals. Keys can also have a daily limit of drafts and sends; past it you get `429`.  **Payments.** A template may contain payment fields (text tag `type=payment` with one of `amount`, `formula`, `price` or `link`). The signer pays on Stripe's hosted page; the money goes to your own connected Stripe account; Docustay's fee is 2% on the Free plan and 0% on Pro, plus Stripe's own fees. The document's `payments` list shows each payment, its receipt and the fee. Card details never reach Docustay.  **Idempotency.** Requests that create a document or a template, or send one, need an `Idempotency-Key` header (8–200 characters). Repeating a request with the same key and body returns the first answer instead of doing it twice.  **Your own reference.** Documents and templates take `externalId` (your id for it) and `metadata` (up to 20 short key/value pairs). List with `externalId=` or `metadata[key]=value` to find them again, and both come back in webhooks.  **Errors.** Every error is `{ \"error\": { \"kind\", \"message\", \"requestId\", \"retryable\" } }`. `kind` is one of `invalid`, `unauthenticated`, `forbidden`, `not_found`, `conflict`, `rate_limited`, `dependency`, `timeout`. Quote the `requestId` to support, or search it in Settings → Developers → API log. **Plan limits** are `403 forbidden` with `error.detail.code`: `plan_document_limit` (the plan's documents this month are used; a form counts the first time it is published, and every signed response counts) or `plan_template_limit` (Free: 5 new templates a month, documents and forms together; a new version of a template you have does not count). Both carry `detail.used`, `detail.limit` and `detail.resetsAt` (the first of next month, UTC). Everything already made keeps working. Pro and self-hosted installs have no template limit.  **Rate limits.** Each key has its own per-minute budget. Every answer carries `RateLimit-Limit`, `RateLimit-Remaining` and `RateLimit-Reset` (seconds); over the budget you get `429` with a `Retry-After` header.  **Versions.** Every answer carries `Docustay-Version`, a date. A change that could break a caller gets a new date and is announced in the changelog before it ships; additions (a new field, a new route) are not breaking and do not change the date.  **Pagination.** Lists take `limit` (1–200) and `cursor`; the answer carries `page.nextCursor` (null on the last page).  **Signing links.** No response contains a signing link or access code, with one exception you control: a seat you send in `embedded` can be given an embedded signing session (`POST /api/v1/documents/{id}/embed-session`), a one-hour link for a frame on a website you listed. A key can start and follow a signature, and put your own signer in front of the form for seats you marked yourself; it cannot sign for anyone.
+ * Send documents for signature and follow them, from your own software.  **Authentication.** Send `Authorization: Bearer <key>`. Make keys in Settings → Developers → API keys and give each only the scopes it needs (there are 35 in all): `accounts:read`, `accounts:write`, `booking:read`, `booking:write`, `documents:read`, `documents:write`, `growth:read`, `growth:write`, `items:read`, `items:write`, `lead:write`, `money:read`, `money:write`, `network:read`, `network:write`, `notifications:read`, `notifications:write`, `people:read`, `people:write`, `platform:read`, `platform:write`, `records:read`, `records:write`, `settings:read`, `settings:write`, `plays:read`, `plays:write`, `drafts:write`, `templates:read`, `templates:write`, `webhooks:read`, `webhooks:write`, `reports:read`, `account:read`, `embedded:write`. A key that starts `dsk_test_` works in **test mode**: documents it sends are practice runs (emailed only to the sender, stamped TEST, never counted or billed), it can only see and act on test documents (any other document answers `404`), and it can sign them itself with `POST /api/v1/documents/{id}/test-sign`. A key can also be limited to a list of addresses, given an expiry, or made **draft-only**.  **Draft-only keys.** A draft-only key can make and edit drafts but cannot send. Asking it to send answers `202` with an `approval`, the document stays a draft, and a person approves or declines in Settings → Developers → Approvals. Keys can also have a daily limit of drafts and sends; past it you get `429`.  **Payments.** A template may contain payment fields (text tag `type=payment` with one of `amount`, `formula`, `price` or `link`). The signer pays on Stripe's hosted page; the money goes to your own connected Stripe account; Docustay's fee is 2% on the Free plan and 0% on Pro, plus Stripe's own fees. The document's `payments` list shows each payment, its receipt and the fee. Card details never reach Docustay.  **Idempotency.** Requests that create a document or a template, or send one, need an `Idempotency-Key` header (8–200 characters). Repeating a request with the same key and body returns the first answer instead of doing it twice.  **Your own reference.** Documents and templates take `externalId` (your id for it) and `metadata` (up to 20 short key/value pairs). List with `externalId=` or `metadata[key]=value` to find them again, and both come back in webhooks.  **Errors.** Every error is `{ \"error\": { \"kind\", \"message\", \"requestId\", \"retryable\" } }`. `kind` is one of `invalid`, `unauthenticated`, `forbidden`, `not_found`, `conflict`, `rate_limited`, `dependency`, `timeout`. Quote the `requestId` to support, or search it in Settings → Developers → API log. **Plan limits** are `403 forbidden` with `error.detail.code`: `plan_document_limit` (the plan's documents this month are used; a form counts the first time it is published, and every signed response counts) or `plan_template_limit` (Free: 5 new templates a month, documents and forms together; a new version of a template you have does not count). Both carry `detail.used`, `detail.limit` and `detail.resetsAt` (the first of next month, UTC). Everything already made keeps working. Pro and self-hosted installs have no template limit.  **Rate limits.** Each key has its own per-minute budget. Every answer carries `RateLimit-Limit`, `RateLimit-Remaining` and `RateLimit-Reset` (seconds); over the budget you get `429` with a `Retry-After` header.  **Versions.** Every answer carries `Docustay-Version`, a date. A change that could break a caller gets a new date and is announced in the changelog before it ships; additions (a new field, a new route) are not breaking and do not change the date.  **Pagination.** Lists take `limit` (1–200) and `cursor`; the answer carries `page.nextCursor` (null on the last page).  **Signing links.** No response contains a signing link or access code, with one exception you control: a seat you send in `embedded` can be given an embedded signing session (`POST /api/v1/documents/{id}/embed-session`), a one-hour link for a frame on a website you listed. A key can start and follow a signature, and put your own signer in front of the form for seats you marked yourself; it cannot sign for anyone.
  *
  * The version of the OpenAPI document: 2026-10-07
  * Contact: support@docustay.app
@@ -126,10 +126,11 @@ namespace Docustay.Api.Api
         /// Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </remarks>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Object</returns>
-        Object PublishForm(PublishFormRequest publishFormRequest, int operationIndex = 0);
+        Object PublishForm(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0);
 
         /// <summary>
         /// Publish a form
@@ -138,10 +139,11 @@ namespace Docustay.Api.Api
         /// Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </remarks>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> PublishFormWithHttpInfo(PublishFormRequest publishFormRequest, int operationIndex = 0);
+        ApiResponse<Object> PublishFormWithHttpInfo(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0);
         /// <summary>
         /// Open or close a form
         /// </summary>
@@ -306,11 +308,12 @@ namespace Docustay.Api.Api
         /// Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </remarks>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> PublishFormAsync(PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<Object> PublishFormAsync(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
 
         /// <summary>
         /// Publish a form
@@ -319,11 +322,12 @@ namespace Docustay.Api.Api
         /// Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </remarks>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> PublishFormWithHttpInfoAsync(PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> PublishFormWithHttpInfoAsync(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         /// <summary>
         /// Open or close a form
         /// </summary>
@@ -1088,12 +1092,13 @@ namespace Docustay.Api.Api
         /// Publish a form Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </summary>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>Object</returns>
-        public Object PublishForm(PublishFormRequest publishFormRequest, int operationIndex = 0)
+        public Object PublishForm(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0)
         {
-            Docustay.Api.Client.ApiResponse<Object> localVarResponse = PublishFormWithHttpInfo(publishFormRequest);
+            Docustay.Api.Client.ApiResponse<Object> localVarResponse = PublishFormWithHttpInfo(idempotencyKey, publishFormRequest);
             return localVarResponse.Data;
         }
 
@@ -1101,11 +1106,18 @@ namespace Docustay.Api.Api
         /// Publish a form Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </summary>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object</returns>
-        public Docustay.Api.Client.ApiResponse<Object> PublishFormWithHttpInfo(PublishFormRequest publishFormRequest, int operationIndex = 0)
+        public Docustay.Api.Client.ApiResponse<Object> PublishFormWithHttpInfo(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0)
         {
+            // verify the required parameter 'idempotencyKey' is set
+            if (idempotencyKey == null)
+            {
+                throw new Docustay.Api.Client.ApiException(400, "Missing required parameter 'idempotencyKey' when calling FormsApi->PublishForm");
+            }
+
             // verify the required parameter 'publishFormRequest' is set
             if (publishFormRequest == null)
             {
@@ -1135,6 +1147,7 @@ namespace Docustay.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
             }
 
+            localVarRequestOptions.HeaderParameters.Add("Idempotency-Key", Docustay.Api.Client.ClientUtils.ParameterToString(idempotencyKey)); // header parameter
             localVarRequestOptions.Data = publishFormRequest;
 
             localVarRequestOptions.Operation = "FormsApi.PublishForm";
@@ -1165,13 +1178,14 @@ namespace Docustay.Api.Api
         /// Publish a form Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </summary>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> PublishFormAsync(PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Object> PublishFormAsync(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
-            Docustay.Api.Client.ApiResponse<Object> localVarResponse = await PublishFormWithHttpInfoAsync(publishFormRequest, operationIndex, cancellationToken).ConfigureAwait(false);
+            Docustay.Api.Client.ApiResponse<Object> localVarResponse = await PublishFormWithHttpInfoAsync(idempotencyKey, publishFormRequest, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -1179,12 +1193,19 @@ namespace Docustay.Api.Api
         /// Publish a form Gives a form template its public link and settings (or changes them). &#x60;slug&#x60; is 4 to 60 letters, numbers and dashes. The template must be approved and have one person who fills it in, plus at most one team member who counter-signs (&#x60;settings.counterSign&#x60;).
         /// </summary>
         /// <exception cref="Docustay.Api.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="idempotencyKey">A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.</param>
         /// <param name="publishFormRequest"></param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<Docustay.Api.Client.ApiResponse<Object>> PublishFormWithHttpInfoAsync(PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Docustay.Api.Client.ApiResponse<Object>> PublishFormWithHttpInfoAsync(string idempotencyKey, PublishFormRequest publishFormRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
         {
+            // verify the required parameter 'idempotencyKey' is set
+            if (idempotencyKey == null)
+            {
+                throw new Docustay.Api.Client.ApiException(400, "Missing required parameter 'idempotencyKey' when calling FormsApi->PublishForm");
+            }
+
             // verify the required parameter 'publishFormRequest' is set
             if (publishFormRequest == null)
             {
@@ -1215,6 +1236,7 @@ namespace Docustay.Api.Api
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
             }
 
+            localVarRequestOptions.HeaderParameters.Add("Idempotency-Key", Docustay.Api.Client.ClientUtils.ParameterToString(idempotencyKey)); // header parameter
             localVarRequestOptions.Data = publishFormRequest;
 
             localVarRequestOptions.Operation = "FormsApi.PublishForm";

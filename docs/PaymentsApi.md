@@ -109,7 +109,7 @@ catch (ApiException e)
 
 <a id="refundpayment"></a>
 # **RefundPayment**
-> Object RefundPayment (Guid id, RefundPaymentRequest refundPaymentRequest)
+> Object RefundPayment (Guid id, string idempotencyKey, RefundPaymentRequest refundPaymentRequest)
 
 Refund a payment, in full or in part
 
@@ -136,12 +136,13 @@ namespace Example
 
             var apiInstance = new PaymentsApi(config);
             var id = "id_example";  // Guid | 
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var refundPaymentRequest = new RefundPaymentRequest(); // RefundPaymentRequest | 
 
             try
             {
                 // Refund a payment, in full or in part
-                Object result = apiInstance.RefundPayment(id, refundPaymentRequest);
+                Object result = apiInstance.RefundPayment(id, idempotencyKey, refundPaymentRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -162,7 +163,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Refund a payment, in full or in part
-    ApiResponse<Object> response = apiInstance.RefundPaymentWithHttpInfo(id, refundPaymentRequest);
+    ApiResponse<Object> response = apiInstance.RefundPaymentWithHttpInfo(id, idempotencyKey, refundPaymentRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -180,6 +181,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **id** | **Guid** |  |  |
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **refundPaymentRequest** | [**RefundPaymentRequest**](RefundPaymentRequest.md) |  |  |
 
 ### Return type

@@ -7,7 +7,7 @@ info:
   description: |-
     Send documents for signature and follow them, from your own software.
 
-    **Authentication.** Send `Authorization: Bearer <key>`. Make keys in Settings → Developers → API keys and give each only the scopes it needs: `accounts:read`, `accounts:write`, `booking:read`, `booking:write`, `documents:read`, `documents:write`, `growth:read`, `growth:write`, `items:read`, `items:write`, `lead:write`, `money:read`, `money:write`, `network:read`, `network:write`, `notifications:read`, `notifications:write`, `people:read`, `people:write`, `platform:read`, `platform:write`, `records:read`, `records:write`, `settings:read`, `settings:write`, `plays:read`, `plays:write`, `drafts:write`, `templates:read`, `templates:write`, `webhooks:read`, `webhooks:write`, `reports:read`, `account:read`, `embedded:write`. A key that starts `dsk_test_` works in **test mode**: documents it sends are practice runs (emailed only to the sender, stamped TEST, never counted or billed), it can only see and act on test documents (any other document answers `404`), and it can sign them itself with `POST /api/v1/documents/{id}/test-sign`. A key can also be limited to a list of addresses, given an expiry, or made **draft-only**.
+    **Authentication.** Send `Authorization: Bearer <key>`. Make keys in Settings → Developers → API keys and give each only the scopes it needs (there are 35 in all): `accounts:read`, `accounts:write`, `booking:read`, `booking:write`, `documents:read`, `documents:write`, `growth:read`, `growth:write`, `items:read`, `items:write`, `lead:write`, `money:read`, `money:write`, `network:read`, `network:write`, `notifications:read`, `notifications:write`, `people:read`, `people:write`, `platform:read`, `platform:write`, `records:read`, `records:write`, `settings:read`, `settings:write`, `plays:read`, `plays:write`, `drafts:write`, `templates:read`, `templates:write`, `webhooks:read`, `webhooks:write`, `reports:read`, `account:read`, `embedded:write`. A key that starts `dsk_test_` works in **test mode**: documents it sends are practice runs (emailed only to the sender, stamped TEST, never counted or billed), it can only see and act on test documents (any other document answers `404`), and it can sign them itself with `POST /api/v1/documents/{id}/test-sign`. A key can also be limited to a list of addresses, given an expiry, or made **draft-only**.
 
     **Draft-only keys.** A draft-only key can make and edit drafts but cannot send. Asking it to send answers `202` with an `approval`, the document stays a draft, and a person approves or declines in Settings → Developers → Approvals. Keys can also have a daily limit of drafts and sends; past it you get `429`.
 
@@ -90,7 +90,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -222,7 +222,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -299,6 +299,19 @@ paths:
         \ a role word from the text. The document is left as a **draft** unless `sendNow`\
         \ is true. Needs an `Idempotency-Key`."
       operationId: createDocument
+      parameters:
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -326,7 +339,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -435,7 +448,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -548,7 +561,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -632,6 +645,19 @@ paths:
         \ seat and sends it. Needs an `Idempotency-Key` header (8–200 characters):\
         \ a retry with the same key and body does not send again."
       operationId: sendDocument
+      parameters:
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -659,7 +685,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -740,6 +766,19 @@ paths:
         \ sits, then keeps the result as a template you can send with `POST /api/v1/documents/send`.\
         \ Needs an `Idempotency-Key` header."
       operationId: createTemplateFromHtml
+      parameters:
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -767,7 +806,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -847,6 +886,19 @@ paths:
       description: "Reads a PDF file, places a field wherever a text tag is written\
         \ in it, and keeps the result as a template. Needs an `Idempotency-Key` header."
       operationId: createTemplateFromFile
+      parameters:
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -874,7 +926,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -954,6 +1006,19 @@ paths:
       description: Keeps a document written in the shared editor's format as a template
         (profile `typeset` by default). Needs an `Idempotency-Key` header.
       operationId: createTemplateFromSource
+      parameters:
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -981,7 +1046,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -1090,7 +1155,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -1199,7 +1264,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -1305,7 +1370,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -1413,7 +1478,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -1515,7 +1580,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2051,7 +2116,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2164,7 +2229,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2282,7 +2347,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2317,7 +2382,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2419,7 +2484,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2454,7 +2519,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2566,7 +2631,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2662,7 +2727,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2766,7 +2831,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2882,7 +2947,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -2917,7 +2982,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3010,7 +3075,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3045,7 +3110,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3139,7 +3204,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3174,7 +3239,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3299,7 +3364,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3416,7 +3481,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3451,7 +3516,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3542,7 +3607,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3577,7 +3642,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3658,7 +3723,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3766,7 +3831,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3801,7 +3866,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3866,6 +3931,18 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -3893,7 +3970,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3928,7 +4005,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -3995,6 +4072,18 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       responses:
         "201":
           content:
@@ -4032,7 +4121,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4067,7 +4156,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4134,6 +4223,18 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -4161,7 +4262,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4196,7 +4297,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4288,7 +4389,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4323,7 +4424,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4409,7 +4510,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4517,7 +4618,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4552,7 +4653,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4628,7 +4729,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -4727,7 +4828,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6023,7 +6124,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6139,7 +6240,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6263,7 +6364,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6405,7 +6506,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6502,6 +6603,19 @@ paths:
         \ be approved and have one person who fills it in, plus at most one team member\
         \ who counter-signs (`settings.counterSign`)."
       operationId: publishForm
+      parameters:
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -6528,7 +6642,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6598,6 +6712,7 @@ paths:
         source: |-
           curl -X POST "https://app.docustay.app/api/v1/forms/publish" \
             -H "Authorization: Bearer $DOCUSTAY_API_KEY" \
+            -H "Idempotency-Key: $(uuidgen)" \
             -H "Content-Type: application/json" \
             -d '{"templateId":"6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e","slug":"string","settings":{"verifyEmail":false,"copyTo":"person@example.com","expiresAt":"string","responseLimit":1,"intro":"string","thankYou":"string","fillAgain":false,"embedSites":["string"],"notifyOwner":false,"confirmRespondent":false,"counterSign":{"on":false,"userId":"6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e"}},"enabled":false}'
       - lang: JavaScript
@@ -6615,7 +6730,7 @@ paths:
 
           r = requests.post(
               f"https://app.docustay.app/api/v1/forms/publish",
-              headers={"Authorization": f"Bearer {os.environ['DOCUSTAY_API_KEY']}"},
+              headers={"Authorization": f"Bearer {os.environ['DOCUSTAY_API_KEY']}", "Idempotency-Key": __import__("uuid").uuid4().hex},
               json={"templateId":"6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e","slug":"string","settings":{"verifyEmail":false,"copyTo":"person@example.com","expiresAt":"string","responseLimit":1,"intro":"string","thankYou":"string","fillAgain":false,"embedSites":["string"],"notifyOwner":false,"confirmRespondent":false,"counterSign":{"on":false,"userId":"6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e"}},"enabled":false},
           )
           r.raise_for_status()
@@ -6659,7 +6774,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6785,7 +6900,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6899,7 +7014,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -6995,7 +7110,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7101,7 +7216,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7209,7 +7324,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7244,7 +7359,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7335,7 +7450,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7370,7 +7485,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7463,7 +7578,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7498,7 +7613,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7582,7 +7697,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7617,7 +7732,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7730,7 +7845,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7765,7 +7880,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7851,7 +7966,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7886,7 +8001,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -7976,7 +8091,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8011,7 +8126,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8075,7 +8190,7 @@ paths:
         name: q
         required: true
         schema:
-          maxLength: 200
+          maxLength: 120
           type: string
         style: form
       - explode: true
@@ -8107,7 +8222,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8223,7 +8338,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8336,7 +8451,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8371,7 +8486,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8469,7 +8584,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8557,6 +8672,18 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: "A unique value for this request (8–200 characters, for example\
+          \ a UUID). Repeating the request with the same key and body returns the\
+          \ first answer instead of doing it twice."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          maxLength: 200
+          minLength: 8
+          type: string
+        style: simple
       requestBody:
         content:
           application/json:
@@ -8583,7 +8710,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8618,7 +8745,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8710,7 +8837,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8823,7 +8950,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:
@@ -8858,7 +8985,7 @@ paths:
             application/json:
               example:
                 error:
-                  kind: invalid
+                  kind: validation
                   message: "parties[0].email is not a valid address"
                   retryable: false
               schema:

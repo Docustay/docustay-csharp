@@ -408,7 +408,7 @@ This endpoint does not need any parameter.
 
 <a id="publishform"></a>
 # **PublishForm**
-> Object PublishForm (PublishFormRequest publishFormRequest)
+> Object PublishForm (string idempotencyKey, PublishFormRequest publishFormRequest)
 
 Publish a form
 
@@ -434,12 +434,13 @@ namespace Example
             config.AccessToken = "YOUR_BEARER_TOKEN";
 
             var apiInstance = new FormsApi(config);
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var publishFormRequest = new PublishFormRequest(); // PublishFormRequest | 
 
             try
             {
                 // Publish a form
-                Object result = apiInstance.PublishForm(publishFormRequest);
+                Object result = apiInstance.PublishForm(idempotencyKey, publishFormRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -460,7 +461,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Publish a form
-    ApiResponse<Object> response = apiInstance.PublishFormWithHttpInfo(publishFormRequest);
+    ApiResponse<Object> response = apiInstance.PublishFormWithHttpInfo(idempotencyKey, publishFormRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -477,6 +478,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **publishFormRequest** | [**PublishFormRequest**](PublishFormRequest.md) |  |  |
 
 ### Return type

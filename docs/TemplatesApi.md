@@ -17,7 +17,7 @@ All URIs are relative to *https://app.docustay.app*
 
 <a id="createtemplatefromfile"></a>
 # **CreateTemplateFromFile**
-> TemplateMade CreateTemplateFromFile (FileTemplateRequest fileTemplateRequest)
+> TemplateMade CreateTemplateFromFile (string idempotencyKey, FileTemplateRequest fileTemplateRequest)
 
 Make a template from a file with text tags
 
@@ -43,12 +43,13 @@ namespace Example
             config.AccessToken = "YOUR_BEARER_TOKEN";
 
             var apiInstance = new TemplatesApi(config);
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var fileTemplateRequest = new FileTemplateRequest(); // FileTemplateRequest | 
 
             try
             {
                 // Make a template from a file with text tags
-                TemplateMade result = apiInstance.CreateTemplateFromFile(fileTemplateRequest);
+                TemplateMade result = apiInstance.CreateTemplateFromFile(idempotencyKey, fileTemplateRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -69,7 +70,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Make a template from a file with text tags
-    ApiResponse<TemplateMade> response = apiInstance.CreateTemplateFromFileWithHttpInfo(fileTemplateRequest);
+    ApiResponse<TemplateMade> response = apiInstance.CreateTemplateFromFileWithHttpInfo(idempotencyKey, fileTemplateRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -86,6 +87,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **fileTemplateRequest** | [**FileTemplateRequest**](FileTemplateRequest.md) |  |  |
 
 ### Return type
@@ -115,7 +117,7 @@ catch (ApiException e)
 
 <a id="createtemplatefromhtml"></a>
 # **CreateTemplateFromHtml**
-> TemplateMade CreateTemplateFromHtml (HtmlTemplateRequest htmlTemplateRequest)
+> TemplateMade CreateTemplateFromHtml (string idempotencyKey, HtmlTemplateRequest htmlTemplateRequest)
 
 Make a template from HTML with text tags
 
@@ -141,12 +143,13 @@ namespace Example
             config.AccessToken = "YOUR_BEARER_TOKEN";
 
             var apiInstance = new TemplatesApi(config);
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var htmlTemplateRequest = new HtmlTemplateRequest(); // HtmlTemplateRequest | 
 
             try
             {
                 // Make a template from HTML with text tags
-                TemplateMade result = apiInstance.CreateTemplateFromHtml(htmlTemplateRequest);
+                TemplateMade result = apiInstance.CreateTemplateFromHtml(idempotencyKey, htmlTemplateRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -167,7 +170,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Make a template from HTML with text tags
-    ApiResponse<TemplateMade> response = apiInstance.CreateTemplateFromHtmlWithHttpInfo(htmlTemplateRequest);
+    ApiResponse<TemplateMade> response = apiInstance.CreateTemplateFromHtmlWithHttpInfo(idempotencyKey, htmlTemplateRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -184,6 +187,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **htmlTemplateRequest** | [**HtmlTemplateRequest**](HtmlTemplateRequest.md) |  |  |
 
 ### Return type
@@ -213,7 +217,7 @@ catch (ApiException e)
 
 <a id="createtemplatefromsource"></a>
 # **CreateTemplateFromSource**
-> CreateTemplateFromSource201Response CreateTemplateFromSource (CreateTemplateFromSourceRequest createTemplateFromSourceRequest)
+> CreateTemplateFromSource201Response CreateTemplateFromSource (string idempotencyKey, CreateTemplateFromSourceRequest createTemplateFromSourceRequest)
 
 Make a template from a document source
 
@@ -239,12 +243,13 @@ namespace Example
             config.AccessToken = "YOUR_BEARER_TOKEN";
 
             var apiInstance = new TemplatesApi(config);
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var createTemplateFromSourceRequest = new CreateTemplateFromSourceRequest(); // CreateTemplateFromSourceRequest | 
 
             try
             {
                 // Make a template from a document source
-                CreateTemplateFromSource201Response result = apiInstance.CreateTemplateFromSource(createTemplateFromSourceRequest);
+                CreateTemplateFromSource201Response result = apiInstance.CreateTemplateFromSource(idempotencyKey, createTemplateFromSourceRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -265,7 +270,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Make a template from a document source
-    ApiResponse<CreateTemplateFromSource201Response> response = apiInstance.CreateTemplateFromSourceWithHttpInfo(createTemplateFromSourceRequest);
+    ApiResponse<CreateTemplateFromSource201Response> response = apiInstance.CreateTemplateFromSourceWithHttpInfo(idempotencyKey, createTemplateFromSourceRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -282,6 +287,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **createTemplateFromSourceRequest** | [**CreateTemplateFromSourceRequest**](CreateTemplateFromSourceRequest.md) |  |  |
 
 ### Return type
@@ -907,7 +913,7 @@ catch (ApiException e)
 
 <a id="usetemplate"></a>
 # **UseTemplate**
-> DocumentMade UseTemplate (Guid id, UseTemplateRequest useTemplateRequest)
+> DocumentMade UseTemplate (Guid id, string idempotencyKey, UseTemplateRequest useTemplateRequest)
 
 Use a written template for people
 
@@ -934,12 +940,13 @@ namespace Example
 
             var apiInstance = new TemplatesApi(config);
             var id = 6f1c1f0e-7a0c-4d1d-9b5e-2f0a7b1c3d4e;  // Guid | 
+            var idempotencyKey = "idempotencyKey_example";  // string | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice.
             var useTemplateRequest = new UseTemplateRequest(); // UseTemplateRequest | 
 
             try
             {
                 // Use a written template for people
-                DocumentMade result = apiInstance.UseTemplate(id, useTemplateRequest);
+                DocumentMade result = apiInstance.UseTemplate(id, idempotencyKey, useTemplateRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -960,7 +967,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Use a written template for people
-    ApiResponse<DocumentMade> response = apiInstance.UseTemplateWithHttpInfo(id, useTemplateRequest);
+    ApiResponse<DocumentMade> response = apiInstance.UseTemplateWithHttpInfo(id, idempotencyKey, useTemplateRequest);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -978,6 +985,7 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **id** | **Guid** |  |  |
+| **idempotencyKey** | **string** | A unique value for this request (8–200 characters, for example a UUID). Repeating the request with the same key and body returns the first answer instead of doing it twice. |  |
 | **useTemplateRequest** | [**UseTemplateRequest**](UseTemplateRequest.md) |  |  |
 
 ### Return type
