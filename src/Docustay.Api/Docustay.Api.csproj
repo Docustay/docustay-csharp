@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>Docustay.Api</AssemblyName>
+    <PackageId>Docustay.Api</PackageId>
+    <OutputType>Library</OutputType>
+    <Authors>Docustay</Authors>
+    <Company>Docustay</Company>
+    <AssemblyTitle>Docustay API client</AssemblyTitle>
+    <Description>Official Docustay API client: send documents for signature and follow them from your own software. https://docustay.app/docs</Description>
+    <Copyright>Copyright (c) 2026 GLRS LLC</Copyright>
+    <RootNamespace>Docustay.Api</RootNamespace>
+    <Version>0.1.0</Version>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Docustay.Api.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/Docustay/docustay-csharp.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://docustay.app</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>docustay;esignature;api;sdk</PackageTags>
+    <PackageReleaseNotes>First release.</PackageReleaseNotes>
+    <Nullable>annotations</Nullable>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="112.0.0" />
+    <PackageReference Include="Polly" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
