@@ -1,29 +1,18 @@
-# Docustay C# client
-
-Official Docustay API client: send documents for signature and follow them from your own software. https://docustay.app/docs
-
-```
-dotnet add package Docustay.Api --version 0.1.2
-```
-
-Generated from the published OpenAPI document (https://docustay.app/api/openapi.json): all 77 operations. MIT licence. Source of truth: https://github.com/Docustay/docustay
-
----
-
+# Docustay.Api - the C# library for the Docustay API
 
 Send documents for signature and follow them, from your own software.
 
-**Authentication.** Send `Authorization: Bearer <key>`. Make keys in Settings → Developers → API keys and give each only the scopes it needs (there are 35 in all): `accounts:read`, `accounts:write`, `booking:read`, `booking:write`, `documents:read`, `documents:write`, `growth:read`, `growth:write`, `items:read`, `items:write`, `lead:write`, `money:read`, `money:write`, `network:read`, `network:write`, `notifications:read`, `notifications:write`, `people:read`, `people:write`, `platform:read`, `platform:write`, `records:read`, `records:write`, `settings:read`, `settings:write`, `plays:read`, `plays:write`, `drafts:write`, `templates:read`, `templates:write`, `webhooks:read`, `webhooks:write`, `reports:read`, `account:read`, `embedded:write`. A key that starts `dsk_test_` works in **test mode**: documents it sends are practice runs (emailed only to the sender, stamped TEST, never counted or billed), it can only see and act on test documents (any other document answers `404`), and it can sign them itself with `POST /api/v1/documents/{id}/test-sign`. A key can also be limited to a list of addresses, given an expiry, or made **draft-only**.
+**Authentication.** Send `Authorization: Bearer <key>`. Make keys in Settings → Developers → API keys and give each only the scopes it needs (there are 12 in all): `documents:read`, `documents:write`, `people:read`, `plays:read`, `plays:write`, `drafts:write`, `templates:read`, `templates:write`, `webhooks:read`, `webhooks:write`, `account:read`, `embedded:write`. A key that starts `dsk_test_` works in **test mode**: documents it sends are practice runs (emailed only to the sender, stamped TEST, never counted or billed), it can only see and act on test documents (any other document answers `404`), and it can sign them itself with `POST /api/v1/documents/{id}/test-sign`. A key can also be limited to a list of addresses, given an expiry, or made **draft-only**.
 
 **Draft-only keys.** A draft-only key can make and edit drafts but cannot send. Asking it to send answers `202` with an `approval`, the document stays a draft, and a person approves or declines in Settings → Developers → Approvals. Keys can also have a daily limit of drafts and sends; past it you get `429`.
 
-**Payments.** A template may contain payment fields (text tag `type=payment` with one of `amount`, `formula`, `price` or `link`). The signer pays on Stripe's hosted page; the money goes to your own connected Stripe account; Docustay's fee is 2% on the Free plan and 0% on Pro, plus Stripe's own fees. The document's `payments` list shows each payment, its receipt and the fee. Card details never reach Docustay.
+**Payments.** A template may contain payment fields (text tag `type=payment` with a set `amount`, optionally a `deposit`, or an amount you give when you send it with `amount=custom.<name>`). The signer pays on Stripe's hosted page; the money goes to your own connected Stripe account; Docustay's fee is 2% on the Free plan and 0% on Pro, plus Stripe's own fees. The document's `payments` list shows each payment, its receipt and the fee. Card details never reach Docustay.
 
 **Idempotency.** Requests that create a document or a template, or send one, need an `Idempotency-Key` header (8–200 characters). Repeating a request with the same key and body returns the first answer instead of doing it twice.
 
 **Your own reference.** Documents and templates take `externalId` (your id for it) and `metadata` (up to 20 short key/value pairs). List with `externalId=` or `metadata[key]=value` to find them again, and both come back in webhooks.
 
-**Errors.** Every error is `{ \"error\": { \"kind\", \"message\", \"requestId\", \"retryable\" } }`. `kind` is one of `invalid`, `unauthenticated`, `forbidden`, `not_found`, `conflict`, `rate_limited`, `dependency`, `timeout`. Quote the `requestId` to support, or search it in Settings → Developers → API log. **Plan limits** are `403 forbidden` with `error.detail.code`: `plan_document_limit` (the plan's documents this month are used; a form counts the first time it is published, and every signed response counts) or `plan_template_limit` (Free: 5 new templates a month, documents and forms together; a new version of a template you have does not count). Both carry `detail.used`, `detail.limit` and `detail.resetsAt` (the first of next month, UTC). Everything already made keeps working. Pro and self-hosted installs have no template limit.
+**Errors.** Every error is `{ \"error\": { \"kind\", \"message\", \"requestId\", \"retryable\" } }`. `kind` is one of `invalid`, `unauthenticated`, `forbidden`, `not_found`, `conflict`, `rate_limited`, `dependency`, `timeout`. Quote the `requestId` to support, or search it in Settings → Developers → API log. **Plan limits** are `403 forbidden` with `error.detail.code`: `plan_document_limit` (the plan's documents this month are used) or `plan_template_limit` (Free: 5 new templates a month; a new version of a template you have does not count). Both carry `detail.used`, `detail.limit` and `detail.resetsAt` (the first of next month, UTC). Everything already made keeps working. Pro and self-hosted installs have no template limit.
 
 **Rate limits.** Each key has its own per-minute budget. Every answer carries `RateLimit-Limit`, `RateLimit-Remaining` and `RateLimit-Reset` (seconds); over the budget you get `429` with a `Retry-After` header.
 
@@ -125,7 +114,7 @@ namespace Example
 
             try
             {
-                // AI credits used against your plan
+                // AI drafts used against your plan
                 AiUsage result = apiInstance.AiUsage();
                 Debug.WriteLine(result);
             }
@@ -148,13 +137,9 @@ All URIs are relative to *https://app.docustay.app*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AccountApi* | [**AiUsage**](docs/AccountApi.md#aiusage) | **GET** /api/v1/ai/usage | AI credits used against your plan
+*AccountApi* | [**AiUsage**](docs/AccountApi.md#aiusage) | **GET** /api/v1/ai/usage | AI drafts used against your plan
 *AccountApi* | [**PaymentsStatus**](docs/AccountApi.md#paymentsstatus) | **GET** /api/v1/payments/status | Is Stripe ready to take a payment?
 *AccountApi* | [**Usage**](docs/AccountApi.md#usage) | **GET** /api/v1/usage | Documents, templates and emails used against your plan
-*AutomationsApi* | [**ListAutomations**](docs/AutomationsApi.md#listautomations) | **GET** /api/v1/automations | List automations
-*AutomationsApi* | [**SetAutomationOn**](docs/AutomationsApi.md#setautomationon) | **POST** /api/v1/automations/{id}/enable | Switch an automation on or off
-*ContractsApi* | [**ListContracts**](docs/ContractsApi.md#listcontracts) | **GET** /api/v1/contracts | List signed contracts with their key dates
-*ContractsApi* | [**SetContractDate**](docs/ContractsApi.md#setcontractdate) | **POST** /api/v1/contracts/{id}/dates | Correct a contract's key date
 *DocumentsApi* | [**AuditLogCsv**](docs/DocumentsApi.md#auditlogcsv) | **GET** /api/v1/documents/{id}/audit-log.csv | The document's audit log as CSV
 *DocumentsApi* | [**CancelAiJob**](docs/DocumentsApi.md#cancelaijob) | **POST** /api/v1/documents/ai/jobs/{id}/cancel | Cancel an AI job
 *DocumentsApi* | [**CheckDocument**](docs/DocumentsApi.md#checkdocument) | **POST** /api/v1/documents/check | Check a document's words before making it
@@ -172,26 +157,15 @@ Class | Method | HTTP request | Description
 *DocumentsApi* | [**ListTemplates**](docs/DocumentsApi.md#listtemplates) | **GET** /api/v1/documents/templates | Templates you can send
 *DocumentsApi* | [**Remind**](docs/DocumentsApi.md#remind) | **POST** /api/v1/documents/{id}/remind | Remind the people who still have to sign
 *DocumentsApi* | [**ReviseDocument**](docs/DocumentsApi.md#revisedocument) | **POST** /api/v1/documents/{id}/revise | Change the words of a draft
-*DocumentsApi* | [**Search**](docs/DocumentsApi.md#search) | **GET** /api/v1/search | Search documents, templates, forms and people
+*DocumentsApi* | [**Search**](docs/DocumentsApi.md#search) | **GET** /api/v1/search | Search documents, templates and people
 *DocumentsApi* | [**SendDocument**](docs/DocumentsApi.md#senddocument) | **POST** /api/v1/documents/send | Send a template to people to sign
 *DocumentsApi* | [**SendDraft**](docs/DocumentsApi.md#senddraft) | **POST** /api/v1/documents/{id}/send | Send a draft
 *DocumentsApi* | [**TestSign**](docs/DocumentsApi.md#testsign) | **POST** /api/v1/documents/{id}/test-sign | Sign a test document (test mode only)
 *DocumentsApi* | [**VoidDocument**](docs/DocumentsApi.md#voiddocument) | **POST** /api/v1/documents/{id}/void | Void a document that is still out for signature
-*EmailApi* | [**ListEmailTemplates**](docs/EmailApi.md#listemailtemplates) | **GET** /api/v1/email-templates | The workspace's email wording
 *EmailApi* | [**ListEmails**](docs/EmailApi.md#listemails) | **GET** /api/v1/emails | The log of email about your documents
-*EmailApi* | [**PreviewEmailTemplate**](docs/EmailApi.md#previewemailtemplate) | **POST** /api/v1/email-templates/{kind}/preview | Preview an email with made-up names
-*EmailApi* | [**ResetEmailTemplate**](docs/EmailApi.md#resetemailtemplate) | **DELETE** /api/v1/email-templates/{kind} | Back to the standard wording
-*EmailApi* | [**SaveEmailTemplate**](docs/EmailApi.md#saveemailtemplate) | **PUT** /api/v1/email-templates/{kind} | Set the wording of one email
 *EmbeddingApi* | [**BuilderSession**](docs/EmbeddingApi.md#buildersession) | **POST** /api/v1/embedded/builder-session | Start an embedded template builder session
 *EmbeddingApi* | [**ScribeSession**](docs/EmbeddingApi.md#scribesession) | **POST** /api/v1/embedded/scribe-session | Start an embedded Scribe session
-*FormsApi* | [**GetForm**](docs/FormsApi.md#getform) | **GET** /api/v1/forms/{id} | Get a form
-*FormsApi* | [**ListFormResponses**](docs/FormsApi.md#listformresponses) | **GET** /api/v1/forms/{id}/responses | List a form's responses
-*FormsApi* | [**ListFormTemplates**](docs/FormsApi.md#listformtemplates) | **GET** /api/v1/forms/templates | List form templates
-*FormsApi* | [**ListForms**](docs/FormsApi.md#listforms) | **GET** /api/v1/forms | List forms
-*FormsApi* | [**PublishForm**](docs/FormsApi.md#publishform) | **POST** /api/v1/forms/publish | Publish a form
-*FormsApi* | [**SetFormOpen**](docs/FormsApi.md#setformopen) | **POST** /api/v1/forms/{id}/open | Open or close a form
-*FormsApi* | [**UnpublishForm**](docs/FormsApi.md#unpublishform) | **POST** /api/v1/forms/{id}/unpublish | Unpublish a form
-*PaymentsApi* | [**ListPayments**](docs/PaymentsApi.md#listpayments) | **GET** /api/v1/payments | List payments taken through documents and forms
+*PaymentsApi* | [**ListPayments**](docs/PaymentsApi.md#listpayments) | **GET** /api/v1/payments | List payments taken through documents
 *PaymentsApi* | [**RefundPayment**](docs/PaymentsApi.md#refundpayment) | **POST** /api/v1/payments/{id}/refund | Refund a payment, in full or in part
 *PlaysApi* | [**AnswerDraft**](docs/PlaysApi.md#answerdraft) | **POST** /api/v1/drafts/{draftRef}/answers | Answer a template's questions
 *PlaysApi* | [**ArchivePlay**](docs/PlaysApi.md#archiveplay) | **DELETE** /api/v1/plays/{name} | Archive a play
@@ -205,7 +179,6 @@ Class | Method | HTTP request | Description
 *PlaysApi* | [**SetPlaybookOn**](docs/PlaysApi.md#setplaybookon) | **POST** /api/v1/playbooks/{name}/enable | Switch a pack on or off
 *PlaysApi* | [**StartDraft**](docs/PlaysApi.md#startdraft) | **POST** /api/v1/drafts | Start a draft from a template
 *PlaysApi* | [**TestPlay**](docs/PlaysApi.md#testplay) | **POST** /api/v1/plays/test | Check a play without saving it
-*ReportsApi* | [**Report**](docs/ReportsApi.md#report) | **GET** /api/v1/reports | Counts of what was sent and completed
 *TeamsApi* | [**ListTeams**](docs/TeamsApi.md#listteams) | **GET** /api/v1/teams | Teams and their members
 *TemplatesApi* | [**CreateTemplateFromFile**](docs/TemplatesApi.md#createtemplatefromfile) | **POST** /api/v1/templates/file | Make a template from a file with text tags
 *TemplatesApi* | [**CreateTemplateFromHtml**](docs/TemplatesApi.md#createtemplatefromhtml) | **POST** /api/v1/templates/html | Make a template from HTML with text tags
@@ -233,7 +206,6 @@ Class | Method | HTTP request | Description
  - [Model.AiDraftJob](docs/AiDraftJob.md)
  - [Model.AiUsage](docs/AiUsage.md)
  - [Model.AiUsageByFeatureValue](docs/AiUsageByFeatureValue.md)
- - [Model.AiUsageThinkHarder](docs/AiUsageThinkHarder.md)
  - [Model.AnswerDraftRequest](docs/AnswerDraftRequest.md)
  - [Model.BuilderSession](docs/BuilderSession.md)
  - [Model.BuilderSessionRequest](docs/BuilderSessionRequest.md)
@@ -265,7 +237,6 @@ Class | Method | HTTP request | Description
  - [Model.EditWithAiRequest](docs/EditWithAiRequest.md)
  - [Model.EditWithAiRequestVariablesInner](docs/EditWithAiRequestVariablesInner.md)
  - [Model.EmailChoice](docs/EmailChoice.md)
- - [Model.EmailWording](docs/EmailWording.md)
  - [Model.EmbedSession200Response](docs/EmbedSession200Response.md)
  - [Model.EmbedSessionRequest](docs/EmbedSessionRequest.md)
  - [Model.Error](docs/Error.md)
@@ -273,13 +244,10 @@ Class | Method | HTTP request | Description
  - [Model.FetchRelayEvents200Response](docs/FetchRelayEvents200Response.md)
  - [Model.FetchRelayEvents200ResponseEventsInner](docs/FetchRelayEvents200ResponseEventsInner.md)
  - [Model.FileTemplateRequest](docs/FileTemplateRequest.md)
- - [Model.FormSettings](docs/FormSettings.md)
- - [Model.FormSettingsCounterSign](docs/FormSettingsCounterSign.md)
  - [Model.GetDraftSource200Response](docs/GetDraftSource200Response.md)
  - [Model.HtmlTemplateRequest](docs/HtmlTemplateRequest.md)
  - [Model.ListDocuments200Response](docs/ListDocuments200Response.md)
  - [Model.ListDocuments200ResponsePage](docs/ListDocuments200ResponsePage.md)
- - [Model.ListEmailTemplates200Response](docs/ListEmailTemplates200Response.md)
  - [Model.ListEmails200Response](docs/ListEmails200Response.md)
  - [Model.ListLibraryTemplates400Response](docs/ListLibraryTemplates400Response.md)
  - [Model.ListLibraryTemplates400ResponseError](docs/ListLibraryTemplates400ResponseError.md)
@@ -296,17 +264,10 @@ Class | Method | HTTP request | Description
  - [Model.PaymentFee](docs/PaymentFee.md)
  - [Model.PaymentsStatus200Response](docs/PaymentsStatus200Response.md)
  - [Model.Person](docs/Person.md)
- - [Model.PublishFormRequest](docs/PublishFormRequest.md)
  - [Model.PublishPlayRequest](docs/PublishPlayRequest.md)
  - [Model.RefundPaymentRequest](docs/RefundPaymentRequest.md)
  - [Model.Remind200Response](docs/Remind200Response.md)
  - [Model.RemindRequest](docs/RemindRequest.md)
- - [Model.Report](docs/Report.md)
- - [Model.ReportByDayInner](docs/ReportByDayInner.md)
- - [Model.ReportByTeamInner](docs/ReportByTeamInner.md)
- - [Model.ReportByTemplateInner](docs/ReportByTemplateInner.md)
- - [Model.ReportTotals](docs/ReportTotals.md)
- - [Model.ReportWindow](docs/ReportWindow.md)
  - [Model.ReviseDocument201Response](docs/ReviseDocument201Response.md)
  - [Model.ReviseDocumentRequest](docs/ReviseDocumentRequest.md)
  - [Model.RotateWebhookSecret200Response](docs/RotateWebhookSecret200Response.md)
@@ -322,9 +283,6 @@ Class | Method | HTTP request | Description
  - [Model.SendDraft202ResponseApproval](docs/SendDraft202ResponseApproval.md)
  - [Model.SendRequest](docs/SendRequest.md)
  - [Model.SendRequestPartiesInner](docs/SendRequestPartiesInner.md)
- - [Model.SetAutomationOnRequest](docs/SetAutomationOnRequest.md)
- - [Model.SetContractDateRequest](docs/SetContractDateRequest.md)
- - [Model.SetFormOpenRequest](docs/SetFormOpenRequest.md)
  - [Model.SetPlaybookOnRequest](docs/SetPlaybookOnRequest.md)
  - [Model.SetTemplateDefaults200Response](docs/SetTemplateDefaults200Response.md)
  - [Model.SetTemplateDefaultsRequest](docs/SetTemplateDefaultsRequest.md)
@@ -342,7 +300,9 @@ Class | Method | HTTP request | Description
  - [Model.TestWebhook200Response](docs/TestWebhook200Response.md)
  - [Model.TestWebhookRequest](docs/TestWebhookRequest.md)
  - [Model.Usage](docs/Usage.md)
+ - [Model.UsageBilling](docs/UsageBilling.md)
  - [Model.UsageDocuments](docs/UsageDocuments.md)
+ - [Model.UsageDrafts](docs/UsageDrafts.md)
  - [Model.UsageEmails](docs/UsageEmails.md)
  - [Model.UsagePeriod](docs/UsagePeriod.md)
  - [Model.UsageTemplates](docs/UsageTemplates.md)

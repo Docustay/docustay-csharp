@@ -719,7 +719,7 @@ catch (ApiException e)
 
 List the built-in templates
 
-The built-in Document templates (`kind=document`) and Form templates (`kind=form`): title, summary, seats, field counts and the questions its guidance asks. `templateId` is your workspace's copy once it has been used. Empty when the workspace hides the library.
+The built-in templates: title, summary, seats, field counts and the questions its guidance asks. `templateId` is your workspace's copy once it has been used. Empty when the workspace hides the library.
 
 ### Example
 ```csharp

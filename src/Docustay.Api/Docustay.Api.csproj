@@ -6,21 +6,17 @@
     <AssemblyName>Docustay.Api</AssemblyName>
     <PackageId>Docustay.Api</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>Docustay</Authors>
-    <Company>Docustay</Company>
-    <AssemblyTitle>Docustay API client</AssemblyTitle>
-    <Description>Official Docustay API client: send documents for signature and follow them from your own software. https://docustay.app/docs</Description>
-    <Copyright>Copyright (c) 2026 GLRS LLC</Copyright>
+    <Authors>OpenAPI</Authors>
+    <Company>OpenAPI</Company>
+    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
+    <Description>A library generated from a OpenAPI doc</Description>
+    <Copyright>No Copyright</Copyright>
     <RootNamespace>Docustay.Api</RootNamespace>
-    <Version>0.1.2</Version>
+    <Version>1.0.0</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Docustay.Api.xml</DocumentationFile>
-    <RepositoryUrl>https://github.com/Docustay/docustay-csharp.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/docustay/docustay-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://docustay.app</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>docustay;esignature;api;sdk</PackageTags>
-    <PackageReleaseNotes>First release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
@@ -33,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

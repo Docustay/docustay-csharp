@@ -21,7 +21,7 @@ All URIs are relative to *https://app.docustay.app*
 | [**ListTemplates**](DocumentsApi.md#listtemplates) | **GET** /api/v1/documents/templates | Templates you can send |
 | [**Remind**](DocumentsApi.md#remind) | **POST** /api/v1/documents/{id}/remind | Remind the people who still have to sign |
 | [**ReviseDocument**](DocumentsApi.md#revisedocument) | **POST** /api/v1/documents/{id}/revise | Change the words of a draft |
-| [**Search**](DocumentsApi.md#search) | **GET** /api/v1/search | Search documents, templates, forms and people |
+| [**Search**](DocumentsApi.md#search) | **GET** /api/v1/search | Search documents, templates and people |
 | [**SendDocument**](DocumentsApi.md#senddocument) | **POST** /api/v1/documents/send | Send a template to people to sign |
 | [**SendDraft**](DocumentsApi.md#senddraft) | **POST** /api/v1/documents/{id}/send | Send a draft |
 | [**TestSign**](DocumentsApi.md#testsign) | **POST** /api/v1/documents/{id}/test-sign | Sign a test document (test mode only) |
@@ -1696,9 +1696,9 @@ catch (ApiException e)
 # **Search**
 > Object Search (string q, int? per = null)
 
-Search documents, templates, forms and people
+Search documents, templates and people
 
-The same search as ⌘K in the app: documents by title or signer, templates, forms and people, best first, grouped. `per` is how many of each kind (1 to 20, default 6).
+The same search as ⌘K in the app: documents by title or signer, templates and people, best first, grouped. `per` is how many of each kind (1 to 20, default 6).
 
 ### Example
 ```csharp
@@ -1725,7 +1725,7 @@ namespace Example
 
             try
             {
-                // Search documents, templates, forms and people
+                // Search documents, templates and people
                 Object result = apiInstance.Search(q, per);
                 Debug.WriteLine(result);
             }
@@ -1746,7 +1746,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Search documents, templates, forms and people
+    // Search documents, templates and people
     ApiResponse<Object> response = apiInstance.SearchWithHttpInfo(q, per);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -1784,7 +1784,7 @@ catch (ApiException e)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Search documents, templates, forms and people |  * Docustay-Version -  <br>  * RateLimit-Limit -  <br>  * RateLimit-Remaining -  <br>  * RateLimit-Reset -  <br>  |
+| **200** | Search documents, templates and people |  * Docustay-Version -  <br>  * RateLimit-Limit -  <br>  * RateLimit-Remaining -  <br>  * RateLimit-Reset -  <br>  |
 | **400** | The request is not valid. &#x60;message&#x60; says which field and why. |  -  |
 | **401** | The key is missing, wrong, revoked, or lacks the scope. Every credential failure gets this same answer. |  -  |
 | **403** | The key is valid but not allowed to do this (a plan limit, or the action is not permitted for keys). |  -  |

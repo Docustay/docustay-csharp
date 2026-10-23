@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Plan** | **string** |  | 
 **Period** | [**UsagePeriod**](UsagePeriod.md) |  | 
 **Documents** | [**UsageDocuments**](UsageDocuments.md) |  | 
+**Drafts** | [**UsageDrafts**](UsageDrafts.md) |  | [optional] 
+**Billing** | [**UsageBilling**](UsageBilling.md) |  | [optional] 
 **Emails** | [**UsageEmails**](UsageEmails.md) |  | 
 **Templates** | [**UsageTemplates**](UsageTemplates.md) |  | [optional] 
 

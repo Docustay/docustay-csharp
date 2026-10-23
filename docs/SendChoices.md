@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **ExpiryDays** | **int?** |  | [optional] 
 **ReminderDays** | **List&lt;int&gt;** |  | [optional] 
 **SigningOrder** | **string** |  | [optional] 
-**Language** | **string** |  | [optional] 
 **InternalNote** | **string** | A note only the sender sees; never in anything a signer gets. | [optional] 
 **RequireDeclineReason** | **bool** |  | [optional] 
 

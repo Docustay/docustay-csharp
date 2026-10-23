@@ -4,7 +4,7 @@ All URIs are relative to *https://app.docustay.app*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
-| [**AiUsage**](AccountApi.md#aiusage) | **GET** /api/v1/ai/usage | AI credits used against your plan |
+| [**AiUsage**](AccountApi.md#aiusage) | **GET** /api/v1/ai/usage | AI drafts used against your plan |
 | [**PaymentsStatus**](AccountApi.md#paymentsstatus) | **GET** /api/v1/payments/status | Is Stripe ready to take a payment? |
 | [**Usage**](AccountApi.md#usage) | **GET** /api/v1/usage | Documents, templates and emails used against your plan |
 
@@ -12,9 +12,9 @@ All URIs are relative to *https://app.docustay.app*
 # **AiUsage**
 > AiUsage AiUsage ()
 
-AI credits used against your plan
+AI drafts used against your plan
 
-The AI allowance for the current period: credits included, used and remaining, when it resets, and the split by kind of work. `mode` is `own_key` (you bring your own provider key, so nothing is metered) or `unmetered` (self-hosted).
+The AI allowance for the current period: drafts included, used and remaining, when it resets, and the split by kind of work. `mode` is `own_key` (you bring your own provider key, so nothing is metered) or `unmetered` (self-hosted).
 
 ### Example
 ```csharp
@@ -39,7 +39,7 @@ namespace Example
 
             try
             {
-                // AI credits used against your plan
+                // AI drafts used against your plan
                 AiUsage result = apiInstance.AiUsage();
                 Debug.WriteLine(result);
             }
@@ -60,7 +60,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // AI credits used against your plan
+    // AI drafts used against your plan
     ApiResponse<AiUsage> response = apiInstance.AiUsageWithHttpInfo();
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -200,7 +200,7 @@ This endpoint does not need any parameter.
 
 Documents, templates and emails used against your plan
 
-Documents sent this calendar month (UTC), new templates made this month and emails sent today, with the plan's limits. `limit` is null when the plan has no limit (Pro has no template limit; a self-hosted install has no limits).
+Documents sent this calendar month (UTC), AI drafts, new templates made this month and emails sent today, with the plan's limits, plus what the month costs so far on a plan with per-unit prices (`billing`). `limit` is null when the plan has no limit (Pro has no template limit; a self-hosted install has no limits).
 
 ### Example
 ```csharp

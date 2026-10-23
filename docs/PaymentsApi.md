@@ -4,14 +4,14 @@ All URIs are relative to *https://app.docustay.app*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
-| [**ListPayments**](PaymentsApi.md#listpayments) | **GET** /api/v1/payments | List payments taken through documents and forms |
+| [**ListPayments**](PaymentsApi.md#listpayments) | **GET** /api/v1/payments | List payments taken through documents |
 | [**RefundPayment**](PaymentsApi.md#refundpayment) | **POST** /api/v1/payments/{id}/refund | Refund a payment, in full or in part |
 
 <a id="listpayments"></a>
 # **ListPayments**
 > Object ListPayments (DateTime? before = null, int? limit = null)
 
-List payments taken through documents and forms
+List payments taken through documents
 
 Newest first: who paid, for which document, the amount, status (`paid`, `waiting` — signed, the signature kept while they pay — `started`, `refunded`, `partially_refunded`, `disputed`), and this month's figures (`month.stripeFee` is Stripe's own fees, `month.stripeFeePending` the payments Stripe has not settled yet). Page with `before` (the `next` of the previous page).
 
@@ -40,7 +40,7 @@ namespace Example
 
             try
             {
-                // List payments taken through documents and forms
+                // List payments taken through documents
                 Object result = apiInstance.ListPayments(before, limit);
                 Debug.WriteLine(result);
             }
@@ -61,7 +61,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // List payments taken through documents and forms
+    // List payments taken through documents
     ApiResponse<Object> response = apiInstance.ListPaymentsWithHttpInfo(before, limit);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -99,7 +99,7 @@ catch (ApiException e)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | List payments taken through documents and forms |  * Docustay-Version -  <br>  * RateLimit-Limit -  <br>  * RateLimit-Remaining -  <br>  * RateLimit-Reset -  <br>  |
+| **200** | List payments taken through documents |  * Docustay-Version -  <br>  * RateLimit-Limit -  <br>  * RateLimit-Remaining -  <br>  * RateLimit-Reset -  <br>  |
 | **400** | The request is not valid. &#x60;message&#x60; says which field and why. |  -  |
 | **401** | The key is missing, wrong, revoked, or lacks the scope. Every credential failure gets this same answer. |  -  |
 | **403** | The key is valid but not allowed to do this (a plan limit, or the action is not permitted for keys). |  -  |
